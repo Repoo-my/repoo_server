@@ -9,9 +9,9 @@ import java.util.Optional;
 @Service
 public class JobUpdater {
 
-    public void update(Job updatableJob, Optional<Job> job) {
+    public void update(Job updatableJob, Job job) {
         updatableJob.update(
-                job.get().getJobGroup(),
-                job.get().getJobName());
+                job.getJobGroup(),
+                job.getJobName());
     }
 }

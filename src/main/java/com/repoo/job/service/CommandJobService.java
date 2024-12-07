@@ -28,7 +28,7 @@ public class CommandJobService {
     }
 
     public void update(Job updatabeJob) {
-        Optional<Job> job = jobReader.findById(updatabeJob.getJobId());
+        Job job = jobReader.findById(updatabeJob.getJobId());
         jobUpdater.update(updatabeJob, job);
     }
 

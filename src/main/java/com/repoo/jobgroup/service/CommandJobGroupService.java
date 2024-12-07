@@ -29,7 +29,7 @@ public class CommandJobGroupService {
     }
 
     public void update(JobGroup updatabeJobGroup) {
-        Optional<JobGroup> jobPost = jobGroupReader.findById(updatabeJobGroup.getJobGroupId());
+        JobGroup jobPost = jobGroupReader.findById(updatabeJobGroup.getJobGroupId());
         jobGroupUpdater.update(updatabeJobGroup, jobPost);
     }
 
