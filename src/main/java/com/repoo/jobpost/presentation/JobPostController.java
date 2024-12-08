@@ -1,8 +1,8 @@
 package com.repoo.jobpost.presentation;
 
 
-import com.repoo.jobpost.domain.JobPost;
-import com.repoo.jobpost.presentation.dto.RequestJobPost;
+import com.repoo.jobpost.presentation.dto.request.RequestJobPost;
+import com.repoo.jobpost.presentation.dto.respoonse.ResponseJobPost;
 import com.repoo.jobpost.service.CommandJobPostService;
 import com.repoo.jobpost.service.QueryJobPostService;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +18,12 @@ public class JobPostController {
     private final QueryJobPostService queryJobPostService;
 
     @GetMapping("/api/jobposts")
-    public List<JobPost> getAllJobPosts() {
+    public List<ResponseJobPost> getAllJobPosts() {
         return queryJobPostService.getAllJobPosts();
     }
 
     @GetMapping("/api/jobpost/{jobPostId}")
-    public JobPost getJobPostById(@PathVariable Long jobPostId) {
+    public ResponseJobPost getJobPostById(@PathVariable Long jobPostId) {
         return queryJobPostService.getJobPostsByJobId(jobPostId);
     }
 

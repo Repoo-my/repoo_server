@@ -7,7 +7,7 @@ import com.repoo.job.service.implementation.JobReader;
 import com.repoo.jobgroup.domain.JobGroup;
 import com.repoo.jobgroup.service.implementation.JobGroupReader;
 import com.repoo.jobpost.domain.JobPost;
-import com.repoo.jobpost.presentation.dto.RequestJobPost;
+import com.repoo.jobpost.presentation.dto.request.RequestJobPost;
 import com.repoo.jobpost.service.implementation.JobPostCreator;
 import com.repoo.jobpost.service.implementation.JobPostDeleter;
 import com.repoo.jobpost.service.implementation.JobPostReader;
@@ -45,7 +45,7 @@ public class CommandJobPostService {
                 jobPost.minStanding(),
                 jobPost.title(),
                 jobPost.contents(),
-                jobPost.jobpostImg()
+                jobPost.jobPostImg()
         ));
     }
 
@@ -61,7 +61,7 @@ public class CommandJobPostService {
                         updatableJobPost.minStanding(),
                         updatableJobPost.title(),
                         updatableJobPost.contents(),
-                        updatableJobPost.jobpostImg()
+                        updatableJobPost.jobPostImg()
                 ),
                 jobPost);
     }
