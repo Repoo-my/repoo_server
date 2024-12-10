@@ -25,6 +25,6 @@ public class LanguageReader {
     }
 
     public List<Language> findByCurriculumVitaeId(CurriculumVitae curriculumVitae){
-        return languageRepository.findByCurriculumVitae(curriculumVitae);
+        return languageRepository.findAllByCurriculumVitae(curriculumVitae);
     }
 }

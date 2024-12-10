@@ -23,6 +23,11 @@ public class Language {
 
     private String languageName;
 
+    public Language(CurriculumVitae curriculumVitae, String languageName) {
+        this.curriculumVitae = curriculumVitae;
+        this.languageName = languageName;
+    }
+
     public void update(String languageName) {
         this.languageName = languageName;
     }

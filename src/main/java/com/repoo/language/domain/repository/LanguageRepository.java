@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface LanguageRepository extends JpaRepository<Language, Long> {
-    public List<Language> findByCurriculumVitae(CurriculumVitae curriculumVitae);
+    List<Language> findAllByCurriculumVitae(CurriculumVitae curriculumVitae);
 }
