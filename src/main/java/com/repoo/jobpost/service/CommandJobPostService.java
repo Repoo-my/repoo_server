@@ -45,7 +45,7 @@ public class CommandJobPostService {
                 jobPost.minStanding(),
                 jobPost.title(),
                 jobPost.contents(),
-                jobPost.jobpostImg()
+                jobPost.jobPostImg()
         ));
     }
 
@@ -61,7 +61,7 @@ public class CommandJobPostService {
                         updatableJobPost.minStanding(),
                         updatableJobPost.title(),
                         updatableJobPost.contents(),
-                        updatableJobPost.jobpostImg()
+                        updatableJobPost.jobPostImg()
                 ),
                 jobPost);
     }

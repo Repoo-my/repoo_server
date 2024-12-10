@@ -18,12 +18,12 @@ public class JobPostController {
     private final QueryJobPostService queryJobPostService;
 
     @GetMapping("/api/jobposts")
-    public List<JobPost> getAllJobPosts() {
+    public List<ResponseJobPost> getAllJobPosts() {
         return queryJobPostService.getAllJobPosts();
     }
 
     @GetMapping("/api/jobpost/{jobPostId}")
-    public JobPost getJobPostById(@PathVariable Long jobPostId) {
+    public ResponseJobPost getJobPostById(@PathVariable Long jobPostId) {
         return queryJobPostService.getJobPostsByJobId(jobPostId);
     }
 
