@@ -35,4 +35,24 @@ public class Career {
     private String retirementDescription;
 
     private String careerDescription;
+
+    public void update(
+            String careerName,
+            String careerType,
+            String careerDepartment,
+            String careerPosition,
+            String careerStartDate,
+            String careerEndDate,
+            String retirementDescription,
+            String careerDescription
+    ) {
+        this.careerName = careerName;
+        this.careerType = careerType;
+        this.careerDepartment = careerDepartment;
+        this.careerPosition = careerPosition;
+        this.careerStartDate = careerStartDate;
+        this.careerEndDate = careerEndDate;
+        this.retirementDescription = retirementDescription;
+        this.careerDescription = careerDescription;
+    }
 }
