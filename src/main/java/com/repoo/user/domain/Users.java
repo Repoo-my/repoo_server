@@ -27,4 +27,13 @@ public class Users {
     private String userAge;
 
     private String profileImg;
+
+    public void update(String userName, String userPassword, String userEmail, String userGender, String userAge, String profileImg){
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.userEmail = userEmail;
+        this.userGender = userGender;
+        this.userAge = userAge;
+        this.profileImg = profileImg;
+    }
 }
