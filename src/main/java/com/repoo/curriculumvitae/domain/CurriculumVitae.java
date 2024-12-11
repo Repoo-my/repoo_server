@@ -33,4 +33,28 @@ public class CurriculumVitae {
     private String curriculumVitaeIntroduction; // 이력서 간단한 소개
 
     private String curriculumVitaeAddress;
+
+    public CurriculumVitae(
+            Users user,
+            String curriculumVitaeTitle,
+            String curriculumVitaeEmail,
+            String curriculumVitaePhone,
+            String curriculumVitaeIntroduction,
+            String curriculumVitaeAddress
+    ){
+        this.user = user;
+        this.curriculumVitaeTitle = curriculumVitaeTitle;
+        this.curriculumVitaeEmail = curriculumVitaeEmail;
+        this.curriculumVitaePhone = curriculumVitaePhone;
+        this.curriculumVitaeIntroduction = curriculumVitaeIntroduction;
+        this.curriculumVitaeAddress = curriculumVitaeAddress;
+    }
+
+    public void update(String curriculumVitaeTitle, String curriculumVitaeEmail, String curriculumVitaePhone, String curriculumVitaeIntroduction, String curriculumVitaeAddress) {
+        this.curriculumVitaeTitle = curriculumVitaeTitle;
+        this.curriculumVitaeEmail = curriculumVitaeEmail;
+        this.curriculumVitaePhone = curriculumVitaePhone;
+        this.curriculumVitaeIntroduction = curriculumVitaeIntroduction;
+        this.curriculumVitaeAddress = curriculumVitaeAddress;
+    }
 }
