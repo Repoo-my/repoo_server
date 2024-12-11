@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDate;
+
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,4 +35,30 @@ public class CurriculumVitae {
     private String curriculumVitaeIntroduction; // 이력서 간단한 소개
 
     private String curriculumVitaeAddress;
+
+    private LocalDate curriculumVitaeDate; // 마지막 수정 날짜
+
+    public CurriculumVitae(
+            Users user,
+            String curriculumVitaeTitle,
+            String curriculumVitaeEmail,
+            String curriculumVitaePhone,
+            String curriculumVitaeIntroduction,
+            String curriculumVitaeAddress
+    ){
+        this.user = user;
+        this.curriculumVitaeTitle = curriculumVitaeTitle;
+        this.curriculumVitaeEmail = curriculumVitaeEmail;
+        this.curriculumVitaePhone = curriculumVitaePhone;
+        this.curriculumVitaeIntroduction = curriculumVitaeIntroduction;
+        this.curriculumVitaeAddress = curriculumVitaeAddress;
+    }
+
+    public void update(String curriculumVitaeTitle, String curriculumVitaeEmail, String curriculumVitaePhone, String curriculumVitaeIntroduction, String curriculumVitaeAddress) {
+        this.curriculumVitaeTitle = curriculumVitaeTitle;
+        this.curriculumVitaeEmail = curriculumVitaeEmail;
+        this.curriculumVitaePhone = curriculumVitaePhone;
+        this.curriculumVitaeIntroduction = curriculumVitaeIntroduction;
+        this.curriculumVitaeAddress = curriculumVitaeAddress;
+    }
 }

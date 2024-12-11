@@ -49,21 +49,21 @@ public class CommandJobPostService {
         ));
     }
 
-    public void update(Long jobPostId, RequestJobPost updatableJobPost) {
-        JobPost jobPost = jobPostReader.findById(jobPostId);
+    public void update(Long jobPostId, RequestJobPost jobPost) {
+        JobPost updatableJobPost = jobPostReader.findById(jobPostId);
         jobPostUpdater.update(
+                updatableJobPost,
                 new JobPost(
                         jobPostId,
-                        jobPost.getEnterprise(),
-                        jobPost.getJobGroup(),
-                        jobPost.getJob(),
-                        updatableJobPost.maxStanding(),
-                        updatableJobPost.minStanding(),
-                        updatableJobPost.title(),
-                        updatableJobPost.contents(),
-                        updatableJobPost.jobPostImg()
-                ),
-                jobPost);
+                        updatableJobPost.getEnterprise(),
+                        updatableJobPost.getJobGroup(),
+                        updatableJobPost.getJob(),
+                        jobPost.maxStanding(),
+                        jobPost.minStanding(),
+                        jobPost.title(),
+                        jobPost.contents(),
+                        jobPost.jobPostImg()
+                ));
     }
 
     public void delete(Long jobPostId) {

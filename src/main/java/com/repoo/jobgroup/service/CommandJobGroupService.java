@@ -28,9 +28,9 @@ public class CommandJobGroupService {
         jobGroupCreator.save(jobPost);
     }
 
-    public void update(JobGroup updatabeJobGroup) {
-        JobGroup jobPost = jobGroupReader.findById(updatabeJobGroup.getJobGroupId());
-        jobGroupUpdater.update(updatabeJobGroup, jobPost);
+    public void update(JobGroup jobGroup) {
+        JobGroup updatableJobGroup = jobGroupReader.findById(jobGroup.getJobGroupId());
+        jobGroupUpdater.update(updatableJobGroup, jobGroup);
     }
 
     public void delete(JobGroup jobPost) {

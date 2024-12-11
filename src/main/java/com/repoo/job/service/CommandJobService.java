@@ -27,9 +27,9 @@ public class CommandJobService {
         jobCreator.save(job);
     }
 
-    public void update(Job updatabeJob) {
-        Job job = jobReader.findById(updatabeJob.getJobId());
-        jobUpdater.update(updatabeJob, job);
+    public void update(Job job) {
+        Job updatableJob = jobReader.findById(job.getJobId());
+        jobUpdater.update(updatableJob, job);
     }
 
     public void delete(Job job) {
