@@ -1,6 +1,6 @@
-package com.repoo.curriculumvitae.presentation.dto;
+package com.repoo.curriculumvitae.presentation.dto.request;
 
-public record PostRequestCurriculumVitae(
+public record RequestCurriculumVitae(
         String curriculumVitaeTitle,
         String curriculumVitaeEmail,
         String curriculumVitaePhone,

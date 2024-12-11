@@ -1,12 +1,14 @@
 package com.repoo.language.service;
 
 import com.repoo.curriculumvitae.domain.CurriculumVitae;
+import com.repoo.curriculumvitae.presentation.dto.response.ResponseLanguage;
 import com.repoo.curriculumvitae.service.implementation.CurriculumVitaeReader;
 import com.repoo.language.domain.Language;
 import com.repoo.language.service.implementation.LanguageReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,8 +26,17 @@ public class QueryLanguageService {
         return languageReader.findAll();
     }
 
-    public List<Language> getLanguagesByCurriculumVitae(Long curriculumVitaeId) {
-        return languageReader.findByCurriculumVitaeId(curriculumVitaeReader.getCurriculumVitae(curriculumVitaeId));
+    public List<ResponseLanguage> getLanguagesByCurriculumVitae(Long curriculumVitaeId) {
+        List<Language> languages = languageReader.findByCurriculumVitaeId(curriculumVitaeReader.getCurriculumVitae(curriculumVitaeId));
+
+        List<ResponseLanguage> responseLanguages = new ArrayList<>();
+        for (Language language : languages) {
+            responseLanguages.add(new ResponseLanguage(
+                    language.getLanguageName()
+            ));
+        }
+
+        return responseLanguages;
     }
 
 }

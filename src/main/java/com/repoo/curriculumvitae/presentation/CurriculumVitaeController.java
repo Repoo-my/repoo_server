@@ -1,10 +1,14 @@
 package com.repoo.curriculumvitae.presentation;
 
 import com.repoo.curriculumvitae.domain.CurriculumVitae;
-import com.repoo.curriculumvitae.presentation.dto.PostRequestCurriculumVitae;
+import com.repoo.curriculumvitae.presentation.dto.request.RequestCareer;
+import com.repoo.curriculumvitae.presentation.dto.request.RequestCurriculumVitae;
+import com.repoo.curriculumvitae.presentation.dto.request.RequestEducation;
+import com.repoo.curriculumvitae.presentation.dto.request.RequestLanguage;
+import com.repoo.curriculumvitae.presentation.dto.response.ResponseCurriculumVitae;
+import com.repoo.curriculumvitae.presentation.dto.response.ResponseDetailCurriculumVitae;
 import com.repoo.curriculumvitae.service.CommandCurriculumVitaeService;
 import com.repoo.curriculumvitae.service.QueryCurriculumVitaeService;
-import com.repoo.curriculumvitae.service.implementation.CurriculumVitaeReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,25 +23,29 @@ public class CurriculumVitaeController {
     private final QueryCurriculumVitaeService queryCurriculumVitaeService;
 
     @GetMapping("/")
-    public List<CurriculumVitae> getCurriculumVitaes(
+    public List<ResponseCurriculumVitae> getCurriculumVitaes(
             @RequestParam Long userId
     ){
         return queryCurriculumVitaeService.getCurriculumVitaesByUser(userId);
     }
 
     @GetMapping("/detail/{curriculumVitaeId}")
-    public CurriculumVitae getCurriculumVitae(
-            @RequestParam Long curriculumVitaeId
+    public ResponseDetailCurriculumVitae getCurriculumVitae(
+            @RequestParam Long userId,
+            @PathVariable Long curriculumVitaeId
     ){
-        return queryCurriculumVitaeService.getCurriculumVitae(curriculumVitaeId);
+        return queryCurriculumVitaeService.getCurriculumVitae(userId, curriculumVitaeId);
     }
 
     @PostMapping("/")
     public void createCurriculumVitae(
             @RequestParam Long userId,
-            @RequestBody PostRequestCurriculumVitae requestCurriculumVitae
-    ){
-        commandCurriculumVitaeService.save(userId, requestCurriculumVitae);
+            @RequestBody RequestCurriculumVitae requestCurriculumVitae,
+            @RequestBody RequestEducation requestEducation,
+            @RequestBody RequestCareer requestCareer,
+            @RequestBody RequestLanguage requestLanguage
+            ){
+        commandCurriculumVitaeService.save(userId, requestCurriculumVitae, requestEducation, requestCareer, requestLanguage);
     }
 
 }
