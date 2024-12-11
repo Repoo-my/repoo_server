@@ -22,8 +22,8 @@ public class CommandLanguageService {
         languageCreator.save(new Language(curriculumVitae, languageName));
     }
 
-    public void update(Long languageId, Language updatableLanguage){
-        languageUpdater.update(languageReader.findById(languageId), updatableLanguage);
+    public void update(Long languageId, Language language){
+        languageUpdater.update(languageReader.findById(languageId), language);
     }
 
     public void delete(Long languageId){
