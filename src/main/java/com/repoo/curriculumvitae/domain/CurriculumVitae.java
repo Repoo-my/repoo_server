@@ -27,38 +27,30 @@ public class CurriculumVitae {
     @Column(length = 100)
     private String curriculumVitaeTitle; // 이력서 제목
 
-    private String curriculumVitaeEmail;
-
-    @Column(length = 11)
-    private String curriculumVitaePhone;
-
     private String curriculumVitaeIntroduction; // 이력서 간단한 소개
 
     private String curriculumVitaeAddress;
 
-    private LocalDate curriculumVitaeDate; // 마지막 수정 날짜
+    private LocalDate curriculumVitaeUpdateDate; // 마지막 수정 날짜
 
     public CurriculumVitae(
             Users user,
             String curriculumVitaeTitle,
-            String curriculumVitaeEmail,
-            String curriculumVitaePhone,
             String curriculumVitaeIntroduction,
-            String curriculumVitaeAddress
+            String curriculumVitaeAddress,
+            LocalDate curriculumVitaeUpdateDate
     ){
         this.user = user;
         this.curriculumVitaeTitle = curriculumVitaeTitle;
-        this.curriculumVitaeEmail = curriculumVitaeEmail;
-        this.curriculumVitaePhone = curriculumVitaePhone;
         this.curriculumVitaeIntroduction = curriculumVitaeIntroduction;
         this.curriculumVitaeAddress = curriculumVitaeAddress;
+        this.curriculumVitaeUpdateDate = curriculumVitaeUpdateDate;
     }
 
-    public void update(String curriculumVitaeTitle, String curriculumVitaeEmail, String curriculumVitaePhone, String curriculumVitaeIntroduction, String curriculumVitaeAddress) {
+    public void update(String curriculumVitaeTitle, String curriculumVitaeIntroduction, String curriculumVitaeAddress, LocalDate curriculumVitaeUpdateDate) {
         this.curriculumVitaeTitle = curriculumVitaeTitle;
-        this.curriculumVitaeEmail = curriculumVitaeEmail;
-        this.curriculumVitaePhone = curriculumVitaePhone;
         this.curriculumVitaeIntroduction = curriculumVitaeIntroduction;
         this.curriculumVitaeAddress = curriculumVitaeAddress;
+        this.curriculumVitaeUpdateDate = curriculumVitaeUpdateDate;
     }
 }
