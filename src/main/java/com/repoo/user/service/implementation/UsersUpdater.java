@@ -12,6 +12,7 @@ public class UsersUpdater {
         updatableUser.update(
                 user.getUserName(),
                 user.getUserPassword(),
+                user.getUserPhone(),
                 user.getUserEmail(),
                 user.getUserGender(),
                 user.getUserAge(),

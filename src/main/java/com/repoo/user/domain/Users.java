@@ -20,6 +20,8 @@ public class Users {
 
     private String userPassword;
 
+    private String userPhone;
+
     private String userEmail;
 
     private String userGender;
@@ -28,9 +30,10 @@ public class Users {
 
     private String profileImg;
 
-    public void update(String userName, String userPassword, String userEmail, String userGender, String userAge, String profileImg){
+    public void update(String userName, String userPassword, String usrePhone, String userEmail, String userGender, String userAge, String profileImg){
         this.userName = userName;
         this.userPassword = userPassword;
+        this.userPhone = userPhone;
         this.userEmail = userEmail;
         this.userGender = userGender;
         this.userAge = userAge;
