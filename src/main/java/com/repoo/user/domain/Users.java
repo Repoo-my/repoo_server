@@ -18,7 +18,7 @@ public class Users {
     private Long usersId;
 
     private String userName;
-
+  
     private String userEmail;
 
     private String userGender;
@@ -43,7 +43,6 @@ public class Users {
     }
 
     public void update(String userName, String userEmail, String userGender, String userAge, String profileImg){
-        this.userName = userName;
         this.userEmail = userEmail;
         this.userGender = userGender;
         this.userAge = userAge;

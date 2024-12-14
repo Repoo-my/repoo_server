@@ -18,6 +18,9 @@ import com.repoo.user.service.implementation.UsersReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+
 @Service
 @RequiredArgsConstructor
 public class CommandCurriculumVitaeService {
@@ -41,10 +44,9 @@ public class CommandCurriculumVitaeService {
         CurriculumVitae curriculumVitae = new CurriculumVitae(
                 usersReader.findById(userId),
                 requestCurriculumVitae.curriculumVitaeTitle(),
-                requestCurriculumVitae.curriculumVitaeEmail(),
-                requestCurriculumVitae.curriculumVitaePhone(),
                 requestCurriculumVitae.curriculumVitaeIntroduction(),
-                requestCurriculumVitae.curriculumVitaeAddress()
+                requestCurriculumVitae.curriculumVitaeAddress(),
+                LocalDate.now(ZoneId.of("Asia/Seoul"))
         );
         curriculumVitaeCreator.save(curriculumVitae);
 
