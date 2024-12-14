@@ -1,6 +1,6 @@
 package com.repoo.global.security.principle;
 
-import com.repoo.domain.user.domain.Users;
+import com.repoo.user.domain.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,7 +1,7 @@
 package com.repoo.global.security.principle;
 
-import com.repoo.domain.user.exception.UserNotFoundException;
-import com.repoo.domain.user.facade.UserFacade;
+import com.repoo.user.exception.UserNotFoundException;
+import com.repoo.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

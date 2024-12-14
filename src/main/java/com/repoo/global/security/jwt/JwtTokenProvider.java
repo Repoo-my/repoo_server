@@ -1,7 +1,7 @@
 package com.repoo.global.security.jwt;
 
-import com.repoo.domain.auth.domain.RefreshToken;
-import com.repoo.domain.auth.domain.repository.RefreshTokenRepository;
+import com.repoo.auth.domain.RefreshToken;
+import com.repoo.auth.domain.repository.RefreshTokenRepository;
 import com.repoo.global.config.properties.JwtProperties;
 import com.repoo.global.exception.security.ExpiredPeriodToken;
 import com.repoo.global.exception.security.InvalidToken;
