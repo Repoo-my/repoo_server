@@ -3,7 +3,6 @@ package com.repoo.curriculumvitae.service;
 import com.repoo.career.service.QueryCareerService;
 import com.repoo.curriculumvitae.domain.CurriculumVitae;
 import com.repoo.curriculumvitae.presentation.dto.response.*;
-import com.repoo.domain.curriculumvitae.presentation.dto.response.*;
 import com.repoo.curriculumvitae.service.implementation.CurriculumVitaeReader;
 import com.repoo.education.service.QueryEducationService;
 import com.repoo.language.service.QueryLanguageService;
@@ -11,6 +10,8 @@ import com.repoo.user.service.implementation.UsersReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -34,11 +35,9 @@ public class QueryCurriculumVitaeService {
         return new ResponseDetailCurriculumVitae(
                 usersReader.findById(userId).getUserName(),
                 curriculumVitae.getCurriculumVitaeTitle(),
-                curriculumVitae.getCurriculumVitaeEmail(),
-                curriculumVitae.getCurriculumVitaePhone(),
                 curriculumVitae.getCurriculumVitaeIntroduction(),
                 curriculumVitae.getCurriculumVitaeAddress(),
-                curriculumVitae.getCurriculumVitaeDate(),
+                LocalDate.now(),
                 responseCareer,
                 responseEducations,
                 responseLanguages
@@ -52,9 +51,8 @@ public class QueryCurriculumVitaeService {
         for (CurriculumVitae curriculumVitae : curriculumVitaes) {
             responseCurriculumVitaes.add(new ResponseCurriculumVitae(
                     curriculumVitae.getCurriculumVitaeTitle(),
-                    curriculumVitae.getCurriculumVitaeEmail(),
                     curriculumVitae.getCurriculumVitaeIntroduction(),
-                    curriculumVitae.getCurriculumVitaeDate()
+                    curriculumVitae.getCurriculumVitaeUpdateDate()
             ));
         }
 

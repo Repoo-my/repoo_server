@@ -6,8 +6,6 @@ import java.util.List;
 public record ResponseDetailCurriculumVitae (
         String userName,
         String curriculumVitaeTitle,
-        String curriculumVitaeEmail,
-        String curriculumVitaePhone,
         String curriculumVitaeIntroduction,
         String curriculumVitaeAddress,
         LocalDate curriculumVitaeDate,
