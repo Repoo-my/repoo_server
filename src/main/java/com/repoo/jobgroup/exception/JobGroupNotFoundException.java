@@ -1,6 +1,6 @@
 package com.repoo.jobgroup.exception;
 
-import com.repoo.common.RepooException;
+import com.repoo.global.exception.RepooException;
 import org.springframework.http.HttpStatus;
 
 public class JobGroupNotFoundException extends RepooException {

@@ -11,8 +11,6 @@ public class UsersUpdater {
     public void update(Users updatableUser, Users user){
         updatableUser.update(
                 user.getUserName(),
-                user.getUserPassword(),
-                user.getUserPhone(),
                 user.getUserEmail(),
                 user.getUserGender(),
                 user.getUserAge(),

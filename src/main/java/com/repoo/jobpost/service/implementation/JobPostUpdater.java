@@ -3,8 +3,6 @@ package com.repoo.jobpost.service.implementation;
 import com.repoo.jobpost.domain.JobPost;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class JobPostUpdater {
 

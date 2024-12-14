@@ -1,4 +1,4 @@
-package com.repoo.common;
+package com.repoo.global.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

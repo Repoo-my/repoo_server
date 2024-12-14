@@ -1,6 +1,5 @@
 package com.repoo.curriculumvitae.domain;
 
-import com.repoo.enterprise.domain.Enterprise;
 import com.repoo.user.domain.Users;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

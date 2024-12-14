@@ -1,13 +1,11 @@
 package com.repoo.curriculumvitae.service;
 
-import com.repoo.career.service.CommandCareerService;
 import com.repoo.career.service.QueryCareerService;
 import com.repoo.curriculumvitae.domain.CurriculumVitae;
 import com.repoo.curriculumvitae.presentation.dto.response.*;
+import com.repoo.domain.curriculumvitae.presentation.dto.response.*;
 import com.repoo.curriculumvitae.service.implementation.CurriculumVitaeReader;
-import com.repoo.education.service.CommandEducationService;
 import com.repoo.education.service.QueryEducationService;
-import com.repoo.language.service.CommandLanguageService;
 import com.repoo.language.service.QueryLanguageService;
 import com.repoo.user.service.implementation.UsersReader;
 import lombok.RequiredArgsConstructor;

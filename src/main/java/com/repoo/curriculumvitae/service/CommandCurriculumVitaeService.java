@@ -13,7 +13,6 @@ import com.repoo.curriculumvitae.service.implementation.CurriculumVitaeReader;
 import com.repoo.curriculumvitae.service.implementation.CurriculumVitaeUpdater;
 import com.repoo.education.domain.Education;
 import com.repoo.education.service.CommandEducationService;
-import com.repoo.language.domain.Language;
 import com.repoo.language.service.CommandLanguageService;
 import com.repoo.user.service.implementation.UsersReader;
 import lombok.RequiredArgsConstructor;

@@ -15,7 +15,7 @@ spring:
     password: ${DB_PASSWORD}
 
   profiles:
-    include: oauth
+    active: global
 
 logging:
   level:

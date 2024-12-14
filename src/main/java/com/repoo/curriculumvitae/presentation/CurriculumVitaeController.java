@@ -1,6 +1,5 @@
 package com.repoo.curriculumvitae.presentation;
 
-import com.repoo.curriculumvitae.domain.CurriculumVitae;
 import com.repoo.curriculumvitae.presentation.dto.request.RequestCareer;
 import com.repoo.curriculumvitae.presentation.dto.request.RequestCurriculumVitae;
 import com.repoo.curriculumvitae.presentation.dto.request.RequestEducation;

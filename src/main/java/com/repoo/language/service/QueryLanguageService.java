@@ -1,6 +1,5 @@
 package com.repoo.language.service;
 
-import com.repoo.curriculumvitae.domain.CurriculumVitae;
 import com.repoo.curriculumvitae.presentation.dto.response.ResponseLanguage;
 import com.repoo.curriculumvitae.service.implementation.CurriculumVitaeReader;
 import com.repoo.language.domain.Language;

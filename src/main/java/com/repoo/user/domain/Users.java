@@ -1,5 +1,6 @@
 package com.repoo.user.domain;
 
+import com.repoo.user.domain.type.Authority;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -17,11 +18,7 @@ public class Users {
     private Long usersId;
 
     private String userName;
-
-    private String userPassword;
-
-    private String userPhone;
-
+  
     private String userEmail;
 
     private String userGender;
@@ -30,10 +27,22 @@ public class Users {
 
     private String profileImg;
 
-    public void update(String userName, String userPassword, String usrePhone, String userEmail, String userGender, String userAge, String profileImg){
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
+
+    public Users(String userEmail, Authority authority) {
+        this.userEmail = userEmail;
+        this.authority = authority;
+    }
+
+    public void update(String userName, String userGender, String userAge, String profileImg) {
         this.userName = userName;
-        this.userPassword = userPassword;
-        this.userPhone = userPhone;
+        this.userGender = userGender;
+        this.userAge = userAge;
+        this.profileImg = profileImg;
+    }
+
+    public void update(String userName, String userEmail, String userGender, String userAge, String profileImg){
         this.userEmail = userEmail;
         this.userGender = userGender;
         this.userAge = userAge;
