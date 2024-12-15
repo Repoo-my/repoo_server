@@ -20,6 +20,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 @Slf4j
 @Configuration
@@ -48,7 +52,6 @@ public class SecurityConfig {
                 UsernamePasswordAuthenticationFilter.class);
 
         http
-                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login","/auth/**", "/reissue","/swagger-ui/**", "/v3/api-docs/**", "/api/**", "/verify", "/favicon.ico", "/logout").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users").permitAll()
@@ -58,6 +61,23 @@ public class SecurityConfig {
 
         http.exceptionHandling(handler ->
                 handler.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)));
+
+        http
+                .cors((cors) -> cors
+                        .configurationSource(request -> {
+
+                            CorsConfiguration configuration = new CorsConfiguration();
+                            configuration.setAllowedOriginPatterns(Collections.singletonList("*"));
+                            configuration.setAllowedMethods(Collections.singletonList("*"));
+                            configuration.setAllowCredentials(true);
+                            configuration.setAllowedHeaders(Collections.singletonList("*"));
+                            configuration.setMaxAge(3600L);
+                            configuration.setExposedHeaders(Arrays.asList("Set-Cookie", "Authorization"));
+
+                            return configuration;
+                        })
+                );
+
 
         return http.build();
     }
