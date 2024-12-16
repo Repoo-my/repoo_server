@@ -13,6 +13,8 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -46,31 +48,29 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         log.warn("오어스 서비스 oAuth2Response : " + oAuth2Response.toString());
         String type = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId();
 
-        Users existData = userRepository.findByUserEmail(oAuth2Response.getEmail())
-                .orElseThrow(SocialUserExistedException::new);
-        Authority role;
+        Optional<Users> existData = userRepository.findByUserEmail(oAuth2Response.getEmail());
         Long id;
 
 
-        if (existData == null) {
+        if (existData.isEmpty()) {
             Users users = Users.socialUserBuilder()
                     .email(oAuth2Response.getEmail())
                     .role(Authority.USER)
+                    .type(type)
                     .build();
 
             userRepository.save(users);
-            role = Authority.USER;
             id = users.getUsersId();
         } else {
 
-            if (existData.getType().equals("normal")) {
+            if (existData.get().getType().equals("normal")) {
                 log.warn("이미 존재합니다.");
                 throw new SocialUserExistedException();
             }
 
-            existData.updateSocial(oAuth2Response.getEmail(), type);
-            userRepository.save(existData);
-            id = existData.getUsersId();
+            existData.get().updateSocial(oAuth2Response.getEmail(), type);
+            userRepository.save(existData.get());
+            id = existData.get().getUsersId();
         }
 
         UserDto userDto = UserDto.builder()
