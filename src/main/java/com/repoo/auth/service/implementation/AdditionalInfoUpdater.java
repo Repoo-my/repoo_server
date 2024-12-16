@@ -1,5 +1,6 @@
 package com.repoo.auth.service.implementation;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.repoo.auth.domain.repository.RefreshTokenRepository;
 import com.repoo.auth.presentation.dto.request.AdditionalInfoRequest;
 import com.repoo.global.jwt.exception.InvalidTokenException;
@@ -14,8 +15,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -27,7 +34,7 @@ public class AdditionalInfoUpdater {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public void update(HttpServletRequest request, HttpServletResponse response, Long userId, AdditionalInfoRequest additionalInfoRequest) {
+    public void update(HttpServletRequest request, HttpServletResponse response, Long userId, AdditionalInfoRequest additionalInfoRequest) throws IOException {
         Users user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException());
 
@@ -64,14 +71,24 @@ public class AdditionalInfoUpdater {
         Long id = jwtUtil.getId(refresh);
         Authority role = Authority.USER;
 
-        String newAccess = jwtUtil.createAccessToken(id, role, loginType);
-        String newRefresh = jwtUtil.createRefreshToken(id, role, loginType);
+        String newAccessToken = jwtUtil.createAccessToken(id, role, loginType);
+        String newRefreshToken = jwtUtil.createRefreshToken(id, role, loginType);
 
         refreshTokenRepository.deleteByRefreshToken(refresh);
-        jwtUtil.addRefreshToken(id, newRefresh);
+        jwtUtil.addRefreshToken(id, newRefreshToken);
 
-        response.addHeader(HttpHeaders.SET_COOKIE, jwtUtil.createAccessCookie(accessCookieName, newAccess).toString());
-        response.addHeader(HttpHeaders.SET_COOKIE, jwtUtil.createRefreshCookie(refreshCookieName, newRefresh).toString());
+        // JSON 응답 생성
+        Map<String, Object> responseBody = new HashMap<>();
+        responseBody.put("accessToken", newAccessToken);
+        responseBody.put("refreshToken", newRefreshToken);
 
+        // 응답 설정
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        response.setStatus(HttpServletResponse.SC_OK); // 성공 상태 코드
+
+        // JSON 데이터를 바디에 쓰기
+        ObjectMapper objectMapper = new ObjectMapper();
+        response.getWriter().write(objectMapper.writeValueAsString(responseBody));
     }
 }

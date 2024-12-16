@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 import static com.repoo.global.jwt.util.AuthenticationUtil.getMemberId;
 
 @Slf4j
@@ -39,7 +41,7 @@ public class AuthController {
             HttpServletRequest request,
             HttpServletResponse response,
             @RequestBody AdditionalInfoRequest additionalInfoRequest
-    ) {
+    ) throws IOException {
         additionalInfoUpdater.update(request, response, getMemberId(), additionalInfoRequest);
     }
 
