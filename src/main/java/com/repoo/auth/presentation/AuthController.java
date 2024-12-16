@@ -1,52 +1,54 @@
 package com.repoo.auth.presentation;
 
-import com.repoo.auth.presentation.dto.request.AccessTokenRequest;
-import com.repoo.auth.presentation.dto.request.RefreshTokenRequest;
-import com.repoo.auth.presentation.dto.response.AccessTokenResponse;
-import com.repoo.auth.presentation.dto.response.TokenResponse;
-import com.repoo.auth.service.CreateAccessTokenService;
-import com.repoo.auth.service.GoogleAuthLinkService;
-import com.repoo.auth.service.GoogleAuthService;
-import com.repoo.auth.service.LogoutService;
+import com.repoo.auth.presentation.dto.request.AdditionalInfoRequest;
+import com.repoo.auth.service.implementation.AdditionalInfoUpdater;
+import com.repoo.auth.service.implementation.ReIssuer;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Auth API")
-@RequiredArgsConstructor
-@RequestMapping("/auth")
+import static com.repoo.global.jwt.util.AuthenticationUtil.getMemberId;
+
+@Slf4j
 @RestController
+@RequiredArgsConstructor
 public class AuthController {
-    private final GoogleAuthLinkService googleAuthLinkService;
-    private final GoogleAuthService googleAuthService;
-    private final CreateAccessTokenService createNewAccessToken;
-    private final LogoutService logoutService;
 
-    @Operation(summary = "구글 로그인 링크 조회")
-    @GetMapping
-    public String getGoogleAuthLink() {
-        return googleAuthLinkService.execute();
+    private final ReIssuer reIssuer;
+    private final AdditionalInfoUpdater additionalInfoUpdater;
+
+    @PostMapping("/reissue")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "토큰 재발급", description = "JWT 토큰을 재발급합니다.")
+    public void reissue(
+        @Parameter(description = "HTTP 요청") HttpServletRequest request,
+        @Parameter(description = "HTTP 응답") HttpServletResponse response
+    ) {
+        reIssuer.reissue(request, response);
     }
 
-    @Operation(summary = "유저 인증을 위한 토큰 발급")
-    @PostMapping
-    public TokenResponse login(@RequestBody @Valid AccessTokenRequest accessTokenRequest) {
-        return googleAuthService.execute(accessTokenRequest.getAccessToken());
+    @PostMapping("/users")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "추가 정보", description = "소셜로그인 후 추가 정보를 받아야 합니다.")
+    public void updateAdditionalInfo(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            @RequestBody AdditionalInfoRequest additionalInfoRequest
+    ) {
+        additionalInfoUpdater.update(request, response, getMemberId(), additionalInfoRequest);
     }
 
-    @Operation(summary = "accessToken 재발급")
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/refresh")
-    public AccessTokenResponse createNewAccessToken(@RequestBody @Valid RefreshTokenRequest request) {
-        return createNewAccessToken.execute(request.getRefreshToken());
+
+    @GetMapping("/check")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "인가 여부", description = "현재 유저의 인가 가능 여부를 판별합니다.")
+    public void checkAuthStatus() {
+        log.warn("AuthController : /check 성공");
     }
 
-    @Operation(summary = "로그아웃")
-    @DeleteMapping
-    public void logout(@RequestBody @Valid RefreshTokenRequest request) {
-        logoutService.execute(request);
-    }
 }

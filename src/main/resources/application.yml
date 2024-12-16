@@ -15,7 +15,18 @@ spring:
     password: ${DB_PASSWORD}
 
   profiles:
-    active: global
+    active: oauth
+
+  security:
+    oauth2:
+      client:
+        registration:
+          naver:
+            redirect-uri: http://localhost:8080/login/oauth2/code/naver
+          google:
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
+          kakao:
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
 
 logging:
   level:

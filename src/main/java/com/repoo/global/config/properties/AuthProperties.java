@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 @Getter
 @Configuration
-@ConfigurationProperties("global")
+@ConfigurationProperties("oauth")
 public class AuthProperties {
 
     private OAuth google;
@@ -18,8 +18,7 @@ public class AuthProperties {
     public static class OAuth {
         private String clientId;
         private String redirectUrl;
-
-        private final String baseUrl = "http://localhost:8080/oauth2/authorization/google";
+        private String baseUrl;
     }
 
     public String getGoogleBaseUrl() {

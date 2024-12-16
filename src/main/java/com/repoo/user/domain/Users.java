@@ -1,8 +1,10 @@
 package com.repoo.user.domain;
 
-import com.repoo.user.domain.type.Authority;
+import com.nimbusds.openid.connect.sdk.claims.Gender;
+import com.repoo.user.domain.value.Authority;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -21,28 +23,70 @@ public class Users {
   
     private String userEmail;
 
+    private String userPhone;
+
     private String userGender;
 
-    private String userAge;
+    private Integer userAge;
 
     private String profileImg;
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
-    public Users(String userEmail, Authority authority) {
-        this.userEmail = userEmail;
-        this.authority = authority;
+    private String type;
+
+    @Builder(builderMethodName = "normalUserBuilder")
+    public Users(String username, String email, String userGender, String type, Integer age, Authority role) {
+        this.authority = role;
+        this.userName = username;
+        this.type = type;
+        this.userEmail = email;
+        this.userAge = age;
+        this.userGender = userGender;
+//        this.profileImg = profileImg;
     }
 
-    public void update(String userName, String userGender, String userAge, String profileImg) {
+    @Builder(builderMethodName = "socialUserBuilder")
+    public Users(String email, Authority role, String type) {
+        this.userEmail = email;
+        this.authority = role;
+        this.type = type;
+    }
+
+    @Builder(builderMethodName = "jwtUserBuilder")
+    public Users(String email, Authority role) {
+        this.userEmail = email;
+        this.authority = role;
+    }
+
+    @Builder(builderMethodName = "updateUserBuilder")
+    public Users(String username, Integer age, String Gender) {
+        this.userName = username;
+        this.userAge = age;
+        this.userGender = Gender;
+//        this.profileImg = profileImg;
+    }
+
+    public void updateSocial(String email, String type) {
+        this.userEmail = email;
+        this.type = type;
+    }
+
+    public void updateAdditionalInfo(String userName, String userGender, Integer userAge, String userPhone) {
         this.userName = userName;
+        this.userPhone = userPhone;
         this.userGender = userGender;
         this.userAge = userAge;
-        this.profileImg = profileImg;
+//        this.profileImg = profileImg;
     }
 
-    public void update(String userName, String userEmail, String userGender, String userAge, String profileImg){
+    public void updateRole(Authority role) {
+        this.authority = role;
+    }
+
+    public void update(String userName, String userEmail, String userGender, Integer userAge, String profileImg){
+        this.userName = userName;
         this.userEmail = userEmail;
         this.userGender = userGender;
         this.userAge = userAge;
