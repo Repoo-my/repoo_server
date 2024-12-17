@@ -78,7 +78,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 //        String jsonString = objectMapper.writeValueAsString(responseHeader);
 
         String queryParam = String.format(
-                "?accessToken=%s&refreshToken=%s&isNewUser=%s",
+                "?accessToken=%s&refreshToken=%s",
                 URLEncoder.encode(accessToken, StandardCharsets.UTF_8.name()),
                 URLEncoder.encode(refreshToken, StandardCharsets.UTF_8.name())
         );
