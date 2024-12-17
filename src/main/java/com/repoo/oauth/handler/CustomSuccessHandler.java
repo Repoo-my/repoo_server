@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,26 +68,32 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         log.warn("소셜 로그인 필터 동작");
 
-        // JSON 데이터를 헤더로 보내기
-        Map<String, Object> responseHeader = new HashMap<>();
-        responseHeader.put("accessToken", accessToken);
-        responseHeader.put("refreshToken", refreshToken);
+//        // JSON 데이터를 헤더로 보내기
+//        Map<String, Object> responseHeader = new HashMap<>();
+//        responseHeader.put("accessToken", accessToken);
+//        responseHeader.put("refreshToken", refreshToken);
+//
+//        // JSON 직렬화
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String jsonString = objectMapper.writeValueAsString(responseHeader);
 
-        // JSON 직렬화
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonString = objectMapper.writeValueAsString(responseHeader);
+        String queryParam = String.format(
+                "?accessToken=%s&refreshToken=%s&isNewUser=%s",
+                URLEncoder.encode(accessToken, StandardCharsets.UTF_8.name()),
+                URLEncoder.encode(refreshToken, StandardCharsets.UTF_8.name())
+        );
 
         // 응답 헤더 설정
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.setStatus(HttpServletResponse.SC_OK); // 성공 상태 코드
 
-        // JSON 데이터를 헤더에 추가
-        response.setHeader("Response-Data", jsonString);
+//        // JSON 데이터를 헤더에 추가
+//        response.setHeader("Response-Data", jsonString);
 
         if (isNewUser) {
             log.warn("오어스 성공 핸들러 새로운 유저");
-            response.sendRedirect(redirectUrl+"/users");
+            response.sendRedirect(redirectUrl+"/users"+queryParam);
         } else {
             log.warn("오어스 성공 핸들러 원래 있던 유저");
             response.sendRedirect(redirectUrl);
