@@ -67,21 +67,22 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         log.warn("소셜 로그인 필터 동작");
 
-        // JSON 응답 생성
-        Map<String, Object> responseBody = new HashMap<>();
-        responseBody.put("accessToken", accessToken);
-        responseBody.put("refreshToken", refreshToken);
-        responseBody.put("isNewUser", isNewUser);
-        responseBody.put("redirectUrl", isNewUser ? "/users" : "");
+        // JSON 데이터를 헤더로 보내기
+        Map<String, Object> responseHeader = new HashMap<>();
+        responseHeader.put("accessToken", accessToken);
+        responseHeader.put("refreshToken", refreshToken);
 
-        // 응답 설정
+        // JSON 직렬화
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = objectMapper.writeValueAsString(responseHeader);
+
+        // 응답 헤더 설정
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.setStatus(HttpServletResponse.SC_OK); // 성공 상태 코드
 
-        // JSON 데이터를 바디에 쓰기
-        ObjectMapper objectMapper = new ObjectMapper();
-        response.getWriter().write(objectMapper.writeValueAsString(responseBody));
+        // JSON 데이터를 헤더에 추가
+        response.setHeader("Response-Data", jsonString);
 
         if (isNewUser) {
             log.warn("오어스 성공 핸들러 새로운 유저");
@@ -91,5 +92,4 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             response.sendRedirect(redirectUrl);
         }
     }
-
 }
