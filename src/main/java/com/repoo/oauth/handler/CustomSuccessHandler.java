@@ -31,6 +31,9 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     private final JwtUtil jwtUtil;
     private final UsersRepository userRepository;
 
+    @Value("${server.redirect}")
+    private String redirectUrl;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
@@ -69,7 +72,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         responseBody.put("accessToken", accessToken);
         responseBody.put("refreshToken", refreshToken);
         responseBody.put("isNewUser", isNewUser);
-        responseBody.put("redirectUrl", isNewUser ? "/additional-info" : "/");
+        responseBody.put("redirectUrl", isNewUser ? "/users" : "");
 
         // 응답 설정
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
@@ -79,6 +82,14 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         // JSON 데이터를 바디에 쓰기
         ObjectMapper objectMapper = new ObjectMapper();
         response.getWriter().write(objectMapper.writeValueAsString(responseBody));
+
+        if (isNewUser) {
+            log.warn("오어스 성공 핸들러 새로운 유저");
+            response.sendRedirect(redirectUrl+"/users");
+        } else {
+            log.warn("오어스 성공 핸들러 원래 있던 유저");
+            response.sendRedirect(redirectUrl);
+        }
     }
 
 }
