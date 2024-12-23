@@ -96,7 +96,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             response.sendRedirect(redirectUrl+"/users"+queryParam);
         } else {
             log.warn("오어스 성공 핸들러 원래 있던 유저");
-            response.sendRedirect(redirectUrl);
+            response.sendRedirect(redirectUrl+queryParam);
         }
     }
 }
