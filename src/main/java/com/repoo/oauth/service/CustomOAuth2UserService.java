@@ -76,6 +76,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         UserDto userDto = UserDto.builder()
                 .id(id)
                 .role(Authority.USER)
+                .oauthType(registrationId)
                 .build();
         log.warn("오어스 서비스 userDto : " + userDto.toString());
         return new CustomOAuth2User(userDto);

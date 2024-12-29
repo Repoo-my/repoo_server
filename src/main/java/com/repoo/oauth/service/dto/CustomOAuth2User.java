@@ -28,6 +28,10 @@ public class CustomOAuth2User implements OAuth2User {
         return collection;
     }
 
+    public String getOauthType(){
+        return userDto.oauthType();
+    }
+
     @Override
     public String getName() {
         return String.valueOf(userDto.id());
