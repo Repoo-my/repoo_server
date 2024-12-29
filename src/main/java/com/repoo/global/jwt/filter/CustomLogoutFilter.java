@@ -1,6 +1,6 @@
 package com.repoo.global.jwt.filter;
 
-import com.repoo.auth.domain.repository.RefreshTokenRepository;
+import com.repoo.domain.authentication.auth.domain.repository.RefreshTokenRepository;
 import com.repoo.global.jwt.exception.InvalidTokenException;
 import com.repoo.global.jwt.exception.RefreshTokenNotFoundException;
 import com.repoo.global.jwt.util.JwtUtil;

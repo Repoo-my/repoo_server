@@ -1,11 +1,11 @@
 package com.repoo.global.jwt.util;
 
-import com.repoo.auth.domain.RefreshToken;
-import com.repoo.auth.domain.repository.RefreshTokenRepository;
+import com.repoo.domain.authentication.auth.domain.RefreshToken;
+import com.repoo.domain.authentication.auth.domain.repository.RefreshTokenRepository;
 import com.repoo.global.jwt.exception.ExpiredRefreshTokenException;
 import com.repoo.global.jwt.exception.ExpiredTokenException;
 import com.repoo.global.jwt.exception.RefreshTokenNotFoundException;
-import com.repoo.user.domain.value.Authority;
+import com.repoo.domain.main.user.domain.value.Authority;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.Cookie;

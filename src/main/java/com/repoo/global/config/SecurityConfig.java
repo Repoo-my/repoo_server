@@ -1,7 +1,7 @@
 package com.repoo.global.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.repoo.auth.domain.repository.RefreshTokenRepository;
+import com.repoo.domain.authentication.auth.domain.repository.RefreshTokenRepository;
 import com.repoo.global.exception.ErrorResponse;
 import com.repoo.global.exception.security.RepooSecurityException;
 import com.repoo.global.exception.security.RepooSecurityExceptionFilter;
@@ -11,9 +11,8 @@ import com.repoo.global.jwt.filter.CustomJwtFilter;
 import com.repoo.global.jwt.filter.CustomLogoutFilter;
 import com.repoo.global.jwt.filter.LoginFilter;
 import com.repoo.global.jwt.util.JwtUtil;
-import com.repoo.oauth.handler.CustomSuccessHandler;
-import com.repoo.oauth.service.CustomOAuth2UserService;
-import jakarta.servlet.http.Cookie;
+import com.repoo.domain.authentication.oauth.handler.CustomSuccessHandler;
+import com.repoo.domain.authentication.oauth.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;

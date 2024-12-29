@@ -3,7 +3,7 @@ package com.repoo.global.jwt.filter;
 import com.repoo.global.jwt.exception.DuplicateLoginException;
 import com.repoo.global.jwt.exception.InvalidTokenException;
 import com.repoo.global.jwt.util.JwtUtil;
-import com.repoo.user.domain.value.Authority;
+import com.repoo.domain.main.user.domain.value.Authority;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

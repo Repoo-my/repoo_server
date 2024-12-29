@@ -1,12 +1,12 @@
 package com.repoo.global.jwt.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.repoo.auth.exception.AuthUserNotFoundException;
-import com.repoo.auth.exception.InvalidCredentialsException;
-import com.repoo.auth.service.dto.CustomUserDetails;
+import com.repoo.domain.authentication.auth.exception.AuthUserNotFoundException;
+import com.repoo.domain.authentication.auth.exception.InvalidCredentialsException;
+import com.repoo.domain.authentication.auth.service.dto.CustomUserDetails;
 import com.repoo.global.jwt.dto.LoginRequest;
 import com.repoo.global.jwt.util.JwtUtil;
-import com.repoo.user.domain.value.Authority;
+import com.repoo.domain.main.user.domain.value.Authority;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

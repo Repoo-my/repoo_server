@@ -1,7 +1,7 @@
 package com.repoo.global.jwt.util;
 
-import com.repoo.auth.service.dto.CustomUserDetails;
-import com.repoo.user.domain.value.Authority;
+import com.repoo.domain.authentication.auth.service.dto.CustomUserDetails;
+import com.repoo.domain.main.user.domain.value.Authority;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
