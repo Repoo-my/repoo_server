@@ -23,7 +23,8 @@ public class SwaggerConfig {
                         "소셜 로그인 API 엔드포인트:\n" +
                         "카카오 로그인: /oauth2/authorization/kakao\n" +
                         "네이버 로그인: /oauth2/authorization/naver\n" +
-                        "구글 로그인: /oauth2/authorization/google") // API에 대한 설명
+                        "구글 로그인: /oauth2/authorization/google\n\n" +
+                        "새로운 유저이면 newUser가 1이고, 기존 유저이면 newUser가 0입니다.") // API에 대한 설명
                 .version("0.1"); // API의 버전
     }
 }
