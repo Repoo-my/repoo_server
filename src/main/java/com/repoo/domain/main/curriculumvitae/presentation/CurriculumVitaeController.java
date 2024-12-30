@@ -51,9 +51,9 @@ public class CurriculumVitaeController {
     public void createCurriculumVitae(
             @RequestHeader Map<String, String> headerData,
             @RequestBody RequestCurriculumVitae requestCurriculumVitae,
-            @RequestBody RequestEducation requestEducation,
-            @RequestBody RequestCareer requestCareer,
-            @RequestBody RequestLanguage requestLanguage
+            @RequestBody List<RequestEducation> requestEducation,
+            @RequestBody List<RequestCareer> requestCareer,
+            @RequestBody List<RequestLanguage> requestLanguage
         ){
         commandCurriculumVitaeService.save(
                 jwtPayloadDecoder.jwtPayloadDecode(headerData.get("access_token")),
@@ -69,9 +69,9 @@ public class CurriculumVitaeController {
         @RequestHeader Map<String, String> headerData,
         @PathVariable Long curriculumVitaeId,
         @RequestBody RequestCurriculumVitae requestCurriculumVitae,
-        @RequestBody RequestEducation requestEducation,
-        @RequestBody RequestCareer requestCareer,
-        @RequestBody RequestLanguage requestLanguage
+        @RequestBody List<RequestEducation> requestEducation,
+        @RequestBody List<RequestCareer> requestCareer,
+        @RequestBody List<RequestLanguage> requestLanguage
     ){
         commandCurriculumVitaeService.update(
             curriculumVitaeId,
