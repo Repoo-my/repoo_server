@@ -25,7 +25,7 @@ public class UsersController {
     public UserInfo getUserInfo(
             @RequestHeader Map<String, String> headerData
     ) {
-        return queryUsersService.getUser(
+        return queryUsersService.getUserInfo(
                 jwtPayloadDecoder.jwtPayloadDecode(headerData.get("access_token"))
         );
     }

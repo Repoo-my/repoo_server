@@ -12,7 +12,11 @@ public class QueryUsersService {
 
     private final UsersReader usersReader;
 
-    public UserInfo getUser(Long id){
+    public Users getUser(Long id){
+        return usersReader.findById(id);
+    }
+
+    public UserInfo getUserInfo(Long id){
         Users user = usersReader.findById(id);
         return new UserInfo(
                 user.getUserName(),
