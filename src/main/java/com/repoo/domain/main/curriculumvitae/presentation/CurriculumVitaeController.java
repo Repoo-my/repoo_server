@@ -29,34 +29,34 @@ public class CurriculumVitaeController {
 
     @GetMapping("/")
     public List<ResponseCurriculumVitae> getCurriculumVitaes(
-            @RequestHeader Map<String, String> headerData
+            @RequestHeader String accessToken
         ){
         return queryCurriculumVitaeService.getCurriculumVitaesByUser(
-                jwtPayloadDecoder.jwtPayloadDecode(headerData.get("access_token"))
+                jwtPayloadDecoder.jwtPayloadDecode(accessToken)
         );
     }
 
     @GetMapping("/detail/{curriculumVitaeId}")
     public ResponseDetailCurriculumVitae getCurriculumVitae(
-            @RequestHeader Map<String, String> headerData,
+            @RequestHeader String accessToken,
             @PathVariable Long curriculumVitaeId
     ){
         return queryCurriculumVitaeService.getCurriculumVitae(
-                jwtPayloadDecoder.jwtPayloadDecode(headerData.get("access_token")),
+                jwtPayloadDecoder.jwtPayloadDecode(accessToken),
                 curriculumVitaeId
         );
     }
 
     @PostMapping("/")
     public void createCurriculumVitae(
-            @RequestHeader Map<String, String> headerData,
+            @RequestHeader String accessToken,
             @RequestBody RequestCurriculumVitae requestCurriculumVitae,
             @RequestBody List<RequestEducation> requestEducation,
             @RequestBody List<RequestCareer> requestCareer,
             @RequestBody List<RequestLanguage> requestLanguage
         ){
         commandCurriculumVitaeService.save(
-                jwtPayloadDecoder.jwtPayloadDecode(headerData.get("access_token")),
+                jwtPayloadDecoder.jwtPayloadDecode(accessToken),
                 requestCurriculumVitae,
                 requestEducation,
                 requestCareer,
@@ -66,7 +66,7 @@ public class CurriculumVitaeController {
 
     @PutMapping("/detail/{curriculumVitaeId}")
     public void updateCurriculumVitae(
-        @RequestHeader Map<String, String> headerData,
+        @RequestHeader String accessToken,
         @PathVariable Long curriculumVitaeId,
         @RequestBody RequestCurriculumVitae requestCurriculumVitae,
         @RequestBody List<RequestEducation> requestEducation,
@@ -75,7 +75,7 @@ public class CurriculumVitaeController {
     ){
         commandCurriculumVitaeService.update(
             curriculumVitaeId,
-            jwtPayloadDecoder.jwtPayloadDecode(headerData.get("access_token")),
+            jwtPayloadDecoder.jwtPayloadDecode(accessToken),
             requestCurriculumVitae,
             requestEducation,
             requestCareer,
@@ -85,12 +85,12 @@ public class CurriculumVitaeController {
 
     @DeleteMapping("/detail/{curriculumVitaeId}")
     public void deleteCurriculumVitae(
-        @RequestHeader Map<String, String> headerData,
+        @RequestHeader String accessToken,
         @PathVariable Long curriculumVitaeId
     ){
         commandCurriculumVitaeService.delete(
             curriculumVitaeId,
-            jwtPayloadDecoder.jwtPayloadDecode(headerData.get("access_token"))
+            jwtPayloadDecoder.jwtPayloadDecode(accessToken)
         );
     }
 
