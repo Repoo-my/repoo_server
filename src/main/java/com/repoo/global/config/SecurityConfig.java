@@ -50,8 +50,6 @@ public class SecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomSuccessHandler customSuccessHandler;
 
-    private final List<String> excludedPaths = Arrays.asList("/login","/auth/**", "/reissue","/swagger-ui/**", "/v3/api-docs/**", "/api/**", "/verify", "/favicon.ico", "/logout");
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
 
@@ -128,9 +126,9 @@ public class SecurityConfig {
 
         http
                 .exceptionHandling(exceptionHandling -> exceptionHandling
-                        .authenticationEntryPoint(((request, response, e) -> {
-                            throw new UnauthenticatedAccessException();
-                        }))
+//                        .authenticationEntryPoint(((request, response, e) -> {
+//                            throw new UnauthenticatedAccessException();
+//                        }))
                         .accessDeniedHandler((request, response, e) -> {
                             throw new CustomAccessDeniedException();
                         })
