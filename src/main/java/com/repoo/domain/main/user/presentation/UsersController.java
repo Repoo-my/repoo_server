@@ -23,10 +23,10 @@ public class UsersController {
 
     @GetMapping("/info")
     public UserInfo getUserInfo(
-            @RequestHeader Map<String, String> headerData
+            @RequestHeader String accessToken
     ) {
         return queryUsersService.getUserInfo(
-                jwtPayloadDecoder.jwtPayloadDecode(headerData.get("access_token"))
+                jwtPayloadDecoder.jwtPayloadDecode(accessToken)
         );
     }
 }
