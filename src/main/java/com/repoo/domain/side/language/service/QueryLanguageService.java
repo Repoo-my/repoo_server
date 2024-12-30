@@ -26,7 +26,7 @@ public class QueryLanguageService {
     }
 
     public List<ResponseLanguage> getLanguagesByCurriculumVitae(Long curriculumVitaeId) {
-        List<Language> languages = languageReader.findByCurriculumVitaeId(curriculumVitaeReader.getCurriculumVitae(curriculumVitaeId));
+        List<Language> languages = languageReader.findByCurriculumVitae(curriculumVitaeReader.getCurriculumVitae(curriculumVitaeId));
 
         List<ResponseLanguage> responseLanguages = new ArrayList<>();
         for (Language language : languages) {
