@@ -54,13 +54,43 @@ public class CurriculumVitaeController {
             @RequestBody RequestEducation requestEducation,
             @RequestBody RequestCareer requestCareer,
             @RequestBody RequestLanguage requestLanguage
-            ){
+        ){
         commandCurriculumVitaeService.save(
                 jwtPayloadDecoder.jwtPayloadDecode(headerData.get("access_token")),
                 requestCurriculumVitae,
                 requestEducation,
                 requestCareer,
                 requestLanguage
+        );
+    }
+
+    @PutMapping("/detail/{curriculumVitaeId}")
+    public void updateCurriculumVitae(
+        @RequestHeader Map<String, String> headerData,
+        @PathVariable Long curriculumVitaeId,
+        @RequestBody RequestCurriculumVitae requestCurriculumVitae,
+        @RequestBody RequestEducation requestEducation,
+        @RequestBody RequestCareer requestCareer,
+        @RequestBody RequestLanguage requestLanguage
+    ){
+        commandCurriculumVitaeService.update(
+            curriculumVitaeId,
+            jwtPayloadDecoder.jwtPayloadDecode(headerData.get("access_token")),
+            requestCurriculumVitae,
+            requestEducation,
+            requestCareer,
+            requestLanguage
+        );
+    }
+
+    @DeleteMapping("/detail/{curriculumVitaeId}")
+    public void deleteCurriculumVitae(
+        @RequestHeader Map<String, String> headerData,
+        @PathVariable Long curriculumVitaeId
+    ){
+        commandCurriculumVitaeService.delete(
+            curriculumVitaeId,
+            jwtPayloadDecoder.jwtPayloadDecode(headerData.get("access_token"))
         );
     }
 
