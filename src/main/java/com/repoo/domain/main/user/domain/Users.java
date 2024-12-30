@@ -22,8 +22,6 @@ public class Users {
   
     private String userEmail;
 
-    private String userPhone;
-
     private String userGender;
 
     private Integer userAge;
@@ -72,9 +70,8 @@ public class Users {
         this.type = type;
     }
 
-    public void updateAdditionalInfo(String userName, String userGender, Integer userAge, String userPhone) {
+    public void updateAdditionalInfo(String userName, String userGender, Integer userAge) {
         this.userName = userName;
-        this.userPhone = userPhone;
         this.userGender = userGender;
         this.userAge = userAge;
 //        this.profileImg = profileImg;

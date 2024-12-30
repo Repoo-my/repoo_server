@@ -60,7 +60,7 @@ public class AdditionalInfoUpdater {
             throw new RefreshTokenNotFoundException();
         }
 
-        user.updateAdditionalInfo(additionalInfoRequest.userName(), additionalInfoRequest.userGender(), additionalInfoRequest.userAge(), additionalInfoRequest.userPhone());
+        user.updateAdditionalInfo(additionalInfoRequest.userName(), additionalInfoRequest.userGender(), additionalInfoRequest.userAge());
         user.updateRole(Authority.USER);
 
         String loginType = jwtUtil.getLoginType(refresh);
