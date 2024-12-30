@@ -7,7 +7,6 @@ import com.repoo.global.exception.security.RepooSecurityException;
 import com.repoo.global.exception.security.RepooSecurityExceptionFilter;
 import com.repoo.global.jwt.exception.CustomAccessDeniedException;
 import com.repoo.global.jwt.exception.UnauthenticatedAccessException;
-import com.repoo.global.jwt.filter.CustomJwtFilter;
 import com.repoo.global.jwt.filter.CustomLogoutFilter;
 import com.repoo.global.jwt.filter.LoginFilter;
 import com.repoo.global.jwt.util.JwtUtil;
@@ -140,8 +139,8 @@ public class SecurityConfig {
         http
                 .addFilterAfter(new RepooSecurityExceptionFilter(objectMapper), CorsFilter.class);
 
-        http
-                .addFilterAfter(new CustomJwtFilter(jwtUtil, excludedPaths), CorsFilter.class);
+//        http
+//                .addFilterAfter(new CustomJwtFilter(jwtUtil, excludedPaths), CorsFilter.class);
 
         http
                 .addFilterBefore(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, objectMapper), UsernamePasswordAuthenticationFilter.class);
