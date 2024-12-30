@@ -9,8 +9,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Slf4j
 @Service
@@ -20,9 +27,10 @@ public class ReIssuer {
     private final JwtUtil jwtUtil;
     private final RefreshTokenRepository refreshRepository;
 
-    public void reissue(HttpServletRequest request, HttpServletResponse response) {
+    @Value("${server.redirect}")
+    private String redirectUrl;
 
-        String refresh = jwtUtil.getTokenFromCookies(request, "refresh_normal", "refresh_social");
+    public void reissue(String refresh, HttpServletResponse response) throws IOException {
 
         if (refresh == null) {
             log.warn("Refresh token not found in cookies");
@@ -58,9 +66,18 @@ public class ReIssuer {
         refreshRepository.deleteByRefreshToken(refresh);
         jwtUtil.addRefreshToken(id, newRefresh);
 
-        response.addHeader(HttpHeaders.SET_COOKIE, jwtUtil.createAccessCookie(accessCookieName, newAccess).toString());
-        response.addHeader(HttpHeaders.SET_COOKIE, jwtUtil.createRefreshCookie(refreshCookieName, newRefresh).toString());
+        String queryParam = String.format(
+                "?accessToken=%s&refreshToken=%s",
+                URLEncoder.encode(newAccess, StandardCharsets.UTF_8.name()),
+                URLEncoder.encode(newRefresh, StandardCharsets.UTF_8.name())
+        );
 
+        // 응답 헤더 설정
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        response.setStatus(HttpServletResponse.SC_OK); // 성공 상태 코드
+
+        response.sendRedirect(redirectUrl+queryParam);
     }
 
 }

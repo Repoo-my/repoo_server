@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Map;
 
 import static com.repoo.global.jwt.util.AuthenticationUtil.getMemberId;
 
@@ -28,10 +29,10 @@ public class AuthController {
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "토큰 재발급", description = "JWT 토큰을 재발급합니다.")
     public void reissue(
-        @Parameter(description = "HTTP 요청") HttpServletRequest request,
-        @Parameter(description = "HTTP 응답") HttpServletResponse response
-    ) {
-        reIssuer.reissue(request, response);
+        @Parameter(description = "HTTP 응답") HttpServletResponse response,
+        @RequestHeader String refreshToken
+    ) throws IOException {
+        reIssuer.reissue(refreshToken, response);
     }
 
     @PostMapping("/users")
