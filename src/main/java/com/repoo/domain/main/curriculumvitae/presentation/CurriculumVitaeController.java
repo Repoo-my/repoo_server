@@ -32,7 +32,7 @@ public class CurriculumVitaeController {
             @RequestHeader String accessToken
         ){
         return queryCurriculumVitaeService.getCurriculumVitaesByUser(
-                jwtPayloadDecoder.jwtPayloadDecode(accessToken)
+                jwtPayloadDecoder.jwtPayloadDecodeToUserId(accessToken)
         );
     }
 
@@ -42,7 +42,7 @@ public class CurriculumVitaeController {
             @PathVariable Long curriculumVitaeId
     ){
         return queryCurriculumVitaeService.getCurriculumVitae(
-                jwtPayloadDecoder.jwtPayloadDecode(accessToken),
+                jwtPayloadDecoder.jwtPayloadDecodeToUserId(accessToken),
                 curriculumVitaeId
         );
     }
@@ -56,7 +56,7 @@ public class CurriculumVitaeController {
             @RequestBody List<RequestLanguage> requestLanguage
         ){
         commandCurriculumVitaeService.save(
-                jwtPayloadDecoder.jwtPayloadDecode(accessToken),
+                jwtPayloadDecoder.jwtPayloadDecodeToUserId(accessToken),
                 requestCurriculumVitae,
                 requestEducation,
                 requestCareer,
@@ -75,7 +75,7 @@ public class CurriculumVitaeController {
     ){
         commandCurriculumVitaeService.update(
             curriculumVitaeId,
-            jwtPayloadDecoder.jwtPayloadDecode(accessToken),
+            jwtPayloadDecoder.jwtPayloadDecodeToUserId(accessToken),
             requestCurriculumVitae,
             requestEducation,
             requestCareer,
@@ -90,7 +90,7 @@ public class CurriculumVitaeController {
     ){
         commandCurriculumVitaeService.delete(
             curriculumVitaeId,
-            jwtPayloadDecoder.jwtPayloadDecode(accessToken)
+            jwtPayloadDecoder.jwtPayloadDecodeToUserId(accessToken)
         );
     }
 

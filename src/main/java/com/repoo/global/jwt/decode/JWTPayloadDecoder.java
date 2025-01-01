@@ -10,7 +10,7 @@ import java.util.Map;
 @Service
 public class JWTPayloadDecoder {
 
-    public Long jwtPayloadDecode(String jwt) {
+    public Long jwtPayloadDecodeToUserId(String jwt) {
         jwt.substring(jwt.indexOf("."), jwt.length()-1);
         jwt.substring(0, jwt.indexOf("."));
 
