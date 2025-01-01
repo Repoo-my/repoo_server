@@ -13,7 +13,7 @@ public class UsersUpdater {
                 user.getUserName(),
                 user.getUserEmail(),
                 user.getUserGender(),
-                user.getUserAge(),
+                user.getUserAge()
 //                user.getProfileImg()
         );
     }
