@@ -5,10 +5,7 @@ import com.repoo.domain.main.user.service.CommandUsersService;
 import com.repoo.domain.main.user.service.QueryUsersService;
 import com.repoo.global.jwt.decode.JWTPayloadDecoder;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -26,7 +23,22 @@ public class UsersController {
             @RequestHeader String accessToken
     ) {
         return queryUsersService.getUserInfo(
-                jwtPayloadDecoder.jwtPayloadDecode(accessToken)
+                jwtPayloadDecoder.jwtPayloadDecodeToUserId(accessToken)
         );
+    }
+
+    @PutMapping
+    public void userUpdate(
+            @RequestHeader String accessToken,
+            @RequestBody UserInfo userInfo
+    ){
+        commandUsersService.update(accessToken, userInfo);
+    }
+
+    @DeleteMapping
+    public void userDelete(
+            @RequestHeader String accessToken
+    ){
+        commandUsersService.delete(accessToken);
     }
 }

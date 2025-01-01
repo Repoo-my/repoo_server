@@ -26,7 +26,7 @@ public class Users {
 
     private Integer userAge;
 
-    private String profileImg;
+//    private String profileImg;
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
@@ -58,10 +58,11 @@ public class Users {
     }
 
     @Builder(builderMethodName = "updateUserBuilder")
-    public Users(String username, Integer age, String Gender) {
+    public Users(String username, Integer age, String Gender, String email) {
         this.userName = username;
         this.userAge = age;
         this.userGender = Gender;
+        this.userEmail = email;
 //        this.profileImg = profileImg;
     }
 
@@ -81,11 +82,11 @@ public class Users {
         this.authority = role;
     }
 
-    public void update(String userName, String userEmail, String userGender, Integer userAge, String profileImg){
+    public void update(String userName, String userEmail, String userGender, Integer userAge){
         this.userName = userName;
         this.userEmail = userEmail;
         this.userGender = userGender;
         this.userAge = userAge;
-        this.profileImg = profileImg;
+//        this.profileImg = profileImg;
     }
 }
