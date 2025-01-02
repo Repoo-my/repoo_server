@@ -5,10 +5,12 @@ import com.repoo.domain.main.user.service.CommandUsersService;
 import com.repoo.domain.main.user.service.QueryUsersService;
 import com.repoo.global.jwt.decode.JWTPayloadDecoder;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
@@ -31,6 +33,7 @@ public class UsersController {
     public String getUserEmail(
             @RequestHeader String accessToken
     ){
+        log.warn("accessToken: "+ accessToken);
         return queryUsersService.getUserEmail(
                 jwtPayloadDecoder.jwtPayloadDecodeToUserId(accessToken)
         );
