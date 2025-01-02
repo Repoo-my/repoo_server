@@ -3,9 +3,9 @@ package com.repoo.domain.authentication.auth.presentation;
 import com.repoo.domain.authentication.auth.presentation.dto.request.AdditionalInfoRequest;
 import com.repoo.domain.authentication.auth.service.implementation.AdditionalInfoUpdater;
 import com.repoo.domain.authentication.auth.service.implementation.ReIssuer;
+import com.repoo.global.jwt.decode.JWTPayloadDecoder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,9 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.Map;
-
-import static com.repoo.global.jwt.util.AuthenticationUtil.getMemberId;
 
 @Slf4j
 @RestController
@@ -25,6 +22,7 @@ public class AuthController {
 
     private final ReIssuer reIssuer;
     private final AdditionalInfoUpdater additionalInfoUpdater;
+    private final JWTPayloadDecoder jWTPayloadDecoder;
 
     @PostMapping("/reissue")
     @ResponseStatus(HttpStatus.OK)
@@ -41,10 +39,16 @@ public class AuthController {
     @Operation(summary = "추가 정보", description = "소셜로그인 후 추가 정보를 받아야 합니다. access token과 refresh 토큰을 재발급합니다.")
     public void updateAdditionalInfo(
             HttpServletResponse response,
+            @RequestHeader String accessToken,
             @RequestHeader String refreshToken,
             @RequestBody AdditionalInfoRequest additionalInfoRequest
     ) throws IOException {
-        additionalInfoUpdater.update(refreshToken, response, getMemberId(), additionalInfoRequest);
+        additionalInfoUpdater.update(
+                refreshToken,
+                response,
+                jWTPayloadDecoder.jwtPayloadDecodeToUserId(accessToken),
+                additionalInfoRequest
+        );
     }
 
 
