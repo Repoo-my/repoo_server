@@ -33,11 +33,9 @@ public class AdditionalInfoUpdater {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public void update(HttpServletRequest request, HttpServletResponse response, Long userId, AdditionalInfoRequest additionalInfoRequest) throws IOException {
+    public void update(String refresh, HttpServletResponse response, Long userId, AdditionalInfoRequest additionalInfoRequest) throws IOException {
         Users user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException());
-
-        String refresh = jwtUtil.getTokenFromCookies(request, "refresh_social");
 
         if (refresh == null) {
             log.warn("Refresh token not found in cookies");
@@ -64,8 +62,6 @@ public class AdditionalInfoUpdater {
         user.updateRole(Authority.USER);
 
         String loginType = jwtUtil.getLoginType(refresh);
-        String accessCookieName = "access_" + loginType;
-        String refreshCookieName = "refresh_" + loginType;
 
         Long id = jwtUtil.getId(refresh);
         Authority role = Authority.USER;

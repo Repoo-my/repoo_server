@@ -37,13 +37,13 @@ public class AuthController {
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "추가 정보", description = "소셜로그인 후 추가 정보를 받아야 합니다.")
+    @Operation(summary = "추가 정보", description = "소셜로그인 후 추가 정보를 받아야 합니다. access token과 refresh 토큰을 재발급합니다.")
     public void updateAdditionalInfo(
-            HttpServletRequest request,
             HttpServletResponse response,
+            @RequestHeader String refreshToken,
             @RequestBody AdditionalInfoRequest additionalInfoRequest
     ) throws IOException {
-        additionalInfoUpdater.update(request, response, getMemberId(), additionalInfoRequest);
+        additionalInfoUpdater.update(refreshToken, response, getMemberId(), additionalInfoRequest);
     }
 
 
