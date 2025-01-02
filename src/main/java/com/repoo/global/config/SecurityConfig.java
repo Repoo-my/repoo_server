@@ -85,6 +85,11 @@ public class SecurityConfig {
                 .csrf((auth) -> auth.disable());
 
         http
+                .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/oauth2/**","/auth/**", "/login/**", "/reissue","/swagger-ui/**", "/v3/api-docs/**", "/api/**", "/verify", "/favicon.ico", "/logout").permitAll()
+                        .anyRequest().hasRole("USER"));
+
+        http
                 .formLogin((auth) -> auth.disable());
 
         http
@@ -116,11 +121,6 @@ public class SecurityConfig {
 
         http
                 .logout((auth) -> auth.disable());
-
-        http
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/oauth2/**","/auth/**", "/login/**", "/reissue","/swagger-ui/**", "/v3/api-docs/**", "/api/**", "/verify", "/favicon.ico", "/logout").permitAll()
-                        .anyRequest().hasRole("USER"));
 
         http
                 .exceptionHandling(exceptionHandling -> exceptionHandling
