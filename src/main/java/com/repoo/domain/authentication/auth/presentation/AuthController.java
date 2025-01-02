@@ -20,6 +20,7 @@ import static com.repoo.global.jwt.util.AuthenticationUtil.getMemberId;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class AuthController {
 
     private final ReIssuer reIssuer;
