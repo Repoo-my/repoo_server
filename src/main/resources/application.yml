@@ -2,6 +2,10 @@ spring:
   application:
     name: Repoo
 
+  config:
+    import:
+      - optional:file:env/repoo.env[.properties]
+
   jpa:
     show-sql: true
     generate-ddl: true
