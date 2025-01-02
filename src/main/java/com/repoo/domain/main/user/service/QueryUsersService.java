@@ -25,4 +25,8 @@ public class QueryUsersService {
                 user.getUserAge()
         );
     }
+
+    public String getUserEmail(Long id){
+        return usersReader.findById(id).getUserEmail();
+    }
 }

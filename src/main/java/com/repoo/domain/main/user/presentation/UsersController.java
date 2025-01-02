@@ -21,8 +21,17 @@ public class UsersController {
     @GetMapping("/info")
     public UserInfo getUserInfo(
             @RequestHeader String accessToken
-    ) {
+    ){
         return queryUsersService.getUserInfo(
+                jwtPayloadDecoder.jwtPayloadDecodeToUserId(accessToken)
+        );
+    }
+
+    @GetMapping("/info/email")
+    public String getUserEmail(
+            @RequestHeader String accessToken
+    ){
+        return queryUsersService.getUserEmail(
                 jwtPayloadDecoder.jwtPayloadDecodeToUserId(accessToken)
         );
     }
