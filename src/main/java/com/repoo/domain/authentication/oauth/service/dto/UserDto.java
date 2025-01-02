@@ -6,15 +6,17 @@ import lombok.Builder;
 public record UserDto(
         Authority role,
         Long id,
+        String userEmail,
         String oauthType,
         String oauthAccessToken,
         String oauthRefreshToken
 ) {
 
     @Builder
-    public UserDto(Authority role, Long id, String oauthType, String oauthAccessToken, String oauthRefreshToken) {
+    public UserDto(Authority role, Long id, String userEmail, String oauthType, String oauthAccessToken, String oauthRefreshToken) {
         this.role = role;
         this.id = id;
+        this.userEmail = userEmail;
         this.oauthType = oauthType;
         this.oauthAccessToken = oauthAccessToken;
         this.oauthRefreshToken = oauthRefreshToken;

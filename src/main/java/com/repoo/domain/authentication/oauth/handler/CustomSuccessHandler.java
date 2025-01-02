@@ -1,5 +1,6 @@
 package com.repoo.domain.authentication.oauth.handler;
 
+import com.repoo.domain.authentication.auth.service.CustomUserDetailsService;
 import com.repoo.global.jwt.util.JwtUtil;
 import com.repoo.domain.authentication.oauth.service.dto.CustomOAuth2User;
 import com.repoo.domain.main.user.domain.Users;
@@ -28,6 +29,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     private final JwtUtil jwtUtil;
     private final UsersRepository userRepository;
+    private final CustomUserDetailsService customUserDetailsService;
 
     @Value("${server.redirect}")
     private String redirectUrl;
@@ -58,8 +60,8 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             }
         }
 
-        String accessToken = jwtUtil.createAccessToken(id, role, "social");
-        String refreshToken = jwtUtil.createRefreshToken(id, role, "social");
+        String accessToken = jwtUtil.createAccessToken(id, role, customUserDetails.getOauthType());
+        String refreshToken = jwtUtil.createRefreshToken(id, role, customUserDetails.getOauthType());
 
         jwtUtil.addRefreshToken(id, refreshToken);
 
@@ -75,9 +77,10 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 //        String jsonString = objectMapper.writeValueAsString(responseHeader);
 
         String queryParam = String.format(
-                "?accessToken=%s&refreshToken=%s",
+                "?accessToken=%s&refreshToken=%s&userEmail=%s",
                 URLEncoder.encode(accessToken, StandardCharsets.UTF_8.name()),
-                URLEncoder.encode(refreshToken, StandardCharsets.UTF_8.name())
+                URLEncoder.encode(refreshToken, StandardCharsets.UTF_8.name()),
+                customUserDetails.getUserEmail()
         );
 
         // 응답 헤더 설정
