@@ -50,17 +50,11 @@ public class CurriculumVitaeController {
     @PostMapping("/")
     public void createCurriculumVitae(
             @RequestHeader String accessToken,
-            @RequestBody RequestCurriculumVitae requestCurriculumVitae,
-            @RequestBody List<RequestEducation> requestEducation,
-            @RequestBody List<RequestCareer> requestCareer,
-            @RequestBody List<RequestLanguage> requestLanguage
+            @RequestBody RequestCurriculumVitae requestCurriculumVitae
         ){
         commandCurriculumVitaeService.save(
                 jwtPayloadDecoder.jwtPayloadDecodeToUserId(accessToken),
-                requestCurriculumVitae,
-                requestEducation,
-                requestCareer,
-                requestLanguage
+                requestCurriculumVitae
         );
     }
 

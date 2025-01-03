@@ -55,11 +55,12 @@ public class CommandCurriculumVitaeService {
 
     public void save(
             Long userId,
-            RequestCurriculumVitae requestCurriculumVitae,
-            List<RequestEducation> requestEducations,
-            List<RequestCareer> requestCareers,
-            List<RequestLanguage> requestLanguages
+            RequestCurriculumVitae requestCurriculumVitae
     ){
+        List<RequestEducation> requestEducations = requestCurriculumVitae.requestEducations();
+        List<RequestCareer> requestCareers = requestCurriculumVitae.requestCareers();
+        List<RequestLanguage> requestLanguages = requestCurriculumVitae.requestLanguages();
+
         CurriculumVitae curriculumVitae = new CurriculumVitae(
                 queryUsersService.getUser(userId),
                 requestCurriculumVitae.curriculumVitaeTitle(),
