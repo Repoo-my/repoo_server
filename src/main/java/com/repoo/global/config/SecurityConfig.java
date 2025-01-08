@@ -71,6 +71,7 @@ public class SecurityConfig {
 
                                     CorsConfiguration configuration = new CorsConfiguration();
                                     configuration.setAllowedOriginPatterns(Collections.singletonList("*"));
+//                                    configuration.setAllowedMethods(Collections.singletonList("*"));
                                     configuration.setAllowedMethods(Collections.singletonList("*"));
                                     configuration.setAllowCredentials(true);
                                     configuration.setAllowedHeaders(Collections.singletonList("*"));
@@ -86,6 +87,9 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/**").permitAll()
                         .requestMatchers("/oauth2/**","/auth/**", "/login/**", "/reissue","/swagger-ui/**", "/v3/api-docs/**", "/api/**", "/verify", "/favicon.ico", "/logout").permitAll()
                         .anyRequest().hasRole("USER"));
 
