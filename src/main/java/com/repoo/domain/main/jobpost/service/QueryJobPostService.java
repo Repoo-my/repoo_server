@@ -30,7 +30,9 @@ public class QueryJobPostService {
                     jobPost.getMinStanding(),
                     jobPost.getTitle(),
                     jobPost.getContents(),
-                    jobPost.getJobpostImg()
+                    jobPost.getSkills(),
+                    jobPost.getTags()
+//                    jobPost.getJobpostImg()
             ));
         }
 
@@ -47,11 +49,9 @@ public class QueryJobPostService {
                 jobPost.getMinStanding(),
                 jobPost.getTitle(),
                 jobPost.getContents(),
-                jobPost.getJobpostImg()
+                jobPost.getSkills(),
+                jobPost.getTags()
+//                jobPost.getJobpostImg()
         );
-    }
-
-    public List<JobPost> getJobPostsByJobTitle(String jobTitle) {
-        return jobPostReader.findByTitle(jobTitle);
     }
 }

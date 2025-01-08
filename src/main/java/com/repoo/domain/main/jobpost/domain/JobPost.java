@@ -3,12 +3,18 @@ package com.repoo.domain.main.jobpost.domain;
 import com.repoo.domain.main.enterprise.domain.Enterprise;
 import com.repoo.domain.side.job.domain.Job;
 import com.repoo.domain.side.jobgroup.domain.JobGroup;
+import io.hypersistence.utils.hibernate.type.array.IntArrayType;
+import io.hypersistence.utils.hibernate.type.array.StringArrayType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.util.List;
 
 @Getter
 @Entity
@@ -40,9 +46,28 @@ public class JobPost {
 
     private String contents;
 
-    private String jobpostImg;
+    @Type(StringArrayType.class)
+    @Column(columnDefinition = "varchar[]")
+    private String[] skills;
 
-    public JobPost(Long jobpostId, Enterprise enterprise, JobGroup jobGroup, Job job, Integer maxStanding, Integer minStanding, String title, String contents, String jobpostImg) {
+    @Type(StringArrayType.class)
+    @Column(columnDefinition = "varchar[]")
+    private String[] tags;
+
+//    private String jobpostImg;
+
+    public JobPost(
+            Long jobpostId,
+            Enterprise enterprise,
+            JobGroup jobGroup,
+            Job job,
+            Integer maxStanding,
+            Integer minStanding,
+            String title,
+            String contents,
+            String[] skills,
+            String[] tags
+    ) {
         this.jobpostId = jobpostId;
         this.enterprise = enterprise;
         this.job = job;
@@ -51,11 +76,23 @@ public class JobPost {
         this.minStanding = minStanding;
         this.title = title;
         this.contents = contents;
-        this.jobpostImg = jobpostImg;
+        this.skills = skills;
+        this.tags = tags;
+//        this.jobpostImg = jobpostImg;
     }
 
     @Builder(builderMethodName = "createBuilder")
-    public JobPost(Enterprise enterprise, Job job, JobGroup jobGroup, Integer maxStanding, Integer minStanding, String title, String contents, String jobpostImg) {
+    public JobPost(
+            Enterprise enterprise,
+            Job job,
+            JobGroup jobGroup,
+            Integer maxStanding,
+            Integer minStanding,
+            String title,
+            String contents,
+            String[] skills,
+            String[] tags
+    ) {
         this.enterprise = enterprise;
         this.job = job;
         this.jobGroup = jobGroup;
@@ -63,27 +100,51 @@ public class JobPost {
         this.minStanding = minStanding;
         this.title = title;
         this.contents = contents;
-        this.jobpostImg = jobpostImg;
+        this.skills = skills;
+        this.tags = tags;
+//        this.jobpostImg = jobpostImg;
     }
 
     @Builder(builderMethodName = "updateBuilder")
-    public JobPost(Job job, JobGroup jobGroup, Integer maxStanding, Integer minStanding, String title, String contents, String jobpostImg) {
+    public JobPost(
+            Job job,
+            JobGroup jobGroup,
+            Integer maxStanding,
+            Integer minStanding,
+            String title,
+            String contents,
+            String[] skills,
+            String[] tags
+    ) {
         this.job = job;
         this.jobGroup = jobGroup;
         this.title = title;
         this.maxStanding = maxStanding;
         this.minStanding = minStanding;
         this.contents = contents;
-        this.jobpostImg = jobpostImg;
+        this.skills = skills;
+        this.tags = tags;
+//        this.jobpostImg = jobpostImg;
     }
 
-    public void update(Job job, JobGroup jobGroup, Integer maxStanding, Integer minStanding, String title, String contents, String jobpostImg) {
+    public void update(
+            Job job,
+            JobGroup jobGroup,
+            Integer maxStanding,
+            Integer minStanding,
+            String title,
+            String contents,
+            String[] skills,
+            String[] tags
+    ) {
         this.job = job;
         this.jobGroup = jobGroup;
         this.maxStanding = maxStanding;
         this.minStanding = minStanding;
         this.title = title;
         this.contents = contents;
-        this.jobpostImg = jobpostImg;
+        this.skills = skills;
+        this.tags = tags;
+//        this.jobpostImg = jobpostImg;
     }
 }

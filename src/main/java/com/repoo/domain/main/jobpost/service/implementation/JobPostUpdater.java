@@ -19,7 +19,10 @@ public class JobPostUpdater {
                 jobPost.getMinStanding(),
                 jobPost.getTitle(),
                 jobPost.getContents(),
-                jobPost.getJobpostImg());
+                jobPost.getSkills(),
+                jobPost.getTags()
+//                jobPost.getJobpostImg()
+        );
 
         jobPostRepository.save(jobPost);
     }

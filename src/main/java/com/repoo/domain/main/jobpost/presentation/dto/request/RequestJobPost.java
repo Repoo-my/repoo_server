@@ -5,5 +5,7 @@ public record RequestJobPost(
     Integer minStanding,
     String title,
     String contents,
-    String jobPostImg
+    String[] skills,
+    String[] tags
+//    String jobPostImg
 ) {}

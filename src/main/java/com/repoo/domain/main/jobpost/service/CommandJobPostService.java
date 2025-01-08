@@ -45,7 +45,9 @@ public class CommandJobPostService {
                 jobPost.minStanding(),
                 jobPost.title(),
                 jobPost.contents(),
-                jobPost.jobPostImg()
+                jobPost.skills(),
+                jobPost.tags()
+//                jobPost.jobPostImg()
         ));
     }
 
@@ -62,7 +64,9 @@ public class CommandJobPostService {
                         jobPost.minStanding(),
                         jobPost.title(),
                         jobPost.contents(),
-                        jobPost.jobPostImg()
+                        jobPost.skills(),
+                        jobPost.tags()
+//                        jobPost.jobPostImg()
                 ));
     }
 
