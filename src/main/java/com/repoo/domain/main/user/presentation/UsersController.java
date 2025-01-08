@@ -1,14 +1,13 @@
 package com.repoo.domain.main.user.presentation;
 
-import com.repoo.domain.main.user.presentation.dto.response.UserInfo;
+import com.repoo.domain.main.user.presentation.dto.request.RequestUserInfo;
+import com.repoo.domain.main.user.presentation.dto.response.ResponseUserInfo;
 import com.repoo.domain.main.user.service.CommandUsersService;
 import com.repoo.domain.main.user.service.QueryUsersService;
 import com.repoo.global.jwt.decode.JWTPayloadDecoder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @Slf4j
 @RestController
@@ -21,7 +20,7 @@ public class UsersController {
     private final JWTPayloadDecoder jwtPayloadDecoder;
 
     @GetMapping("/info")
-    public UserInfo getUserInfo(
+    public ResponseUserInfo getUserInfo(
             @RequestHeader String accessToken
     ){
         return queryUsersService.getUserInfo(
@@ -33,7 +32,6 @@ public class UsersController {
     public String getUserEmail(
             @RequestHeader String accessToken
     ){
-        log.warn("accessToken: "+ accessToken);
         return queryUsersService.getUserEmail(
                 jwtPayloadDecoder.jwtPayloadDecodeToUserId(accessToken)
         );
@@ -42,7 +40,7 @@ public class UsersController {
     @PutMapping
     public void userUpdate(
             @RequestHeader String accessToken,
-            @RequestBody UserInfo userInfo
+            @RequestBody RequestUserInfo userInfo
     ){
         commandUsersService.update(accessToken, userInfo);
     }

@@ -1,7 +1,7 @@
 package com.repoo.domain.main.user.service;
 
 import com.repoo.domain.main.user.domain.Users;
-import com.repoo.domain.main.user.presentation.dto.response.UserInfo;
+import com.repoo.domain.main.user.presentation.dto.response.ResponseUserInfo;
 import com.repoo.domain.main.user.service.implementation.UsersReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,9 +16,9 @@ public class QueryUsersService {
         return usersReader.findById(id);
     }
 
-    public UserInfo getUserInfo(Long id){
+    public ResponseUserInfo getUserInfo(Long id){
         Users user = usersReader.findById(id);
-        return new UserInfo(
+        return new ResponseUserInfo(
                 user.getUserName(),
                 user.getUserEmail(),
                 user.getUserGender(),

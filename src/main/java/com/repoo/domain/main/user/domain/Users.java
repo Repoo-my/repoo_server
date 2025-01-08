@@ -57,13 +57,10 @@ public class Users {
         this.authority = role;
     }
 
-    @Builder(builderMethodName = "updateUserBuilder")
-    public Users(String username, Integer age, String Gender, String email) {
+    public Users(String username, Integer age, String Gender) {
         this.userName = username;
         this.userAge = age;
         this.userGender = Gender;
-        this.userEmail = email;
-//        this.profileImg = profileImg;
     }
 
     public void updateSocial(String email, String type) {
@@ -75,18 +72,9 @@ public class Users {
         this.userName = userName;
         this.userGender = userGender;
         this.userAge = userAge;
-//        this.profileImg = profileImg;
     }
 
     public void updateRole(Authority role) {
         this.authority = role;
-    }
-
-    public void update(String userName, String userEmail, String userGender, Integer userAge){
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userGender = userGender;
-        this.userAge = userAge;
-//        this.profileImg = profileImg;
     }
 }
