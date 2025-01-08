@@ -62,18 +62,12 @@ public class CurriculumVitaeController {
     public void updateCurriculumVitae(
         @RequestHeader String accessToken,
         @PathVariable Long curriculumVitaeId,
-        @RequestBody RequestCurriculumVitae requestCurriculumVitae,
-        @RequestBody List<RequestEducation> requestEducation,
-        @RequestBody List<RequestCareer> requestCareer,
-        @RequestBody List<RequestLanguage> requestLanguage
+        @RequestBody RequestCurriculumVitae requestCurriculumVitae
     ){
         commandCurriculumVitaeService.update(
             curriculumVitaeId,
             jwtPayloadDecoder.jwtPayloadDecodeToUserId(accessToken),
-            requestCurriculumVitae,
-            requestEducation,
-            requestCareer,
-            requestLanguage
+            requestCurriculumVitae
         );
     }
 

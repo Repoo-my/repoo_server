@@ -1,6 +1,7 @@
 package com.repoo.domain.main.curriculumvitae.service.implementation;
 
 import com.repoo.domain.main.curriculumvitae.domain.CurriculumVitae;
+import com.repoo.domain.main.curriculumvitae.domain.repository.CurriculumVitaeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,8 @@ import java.time.ZoneId;
 @RequiredArgsConstructor
 public class CurriculumVitaeUpdater {
 
+    private final CurriculumVitaeRepository curriculumVitaeRepository;
+
     public void update(CurriculumVitae updatableCurriculumVitae, CurriculumVitae curriculumVitae){
         updatableCurriculumVitae.update(
                 curriculumVitae.getCurriculumVitaeTitle(),
@@ -18,5 +21,7 @@ public class CurriculumVitaeUpdater {
                 curriculumVitae.getCurriculumVitaeAddress(),
                 LocalDate.now(ZoneId.of("Asia/Seoul"))
         );
+
+        curriculumVitaeRepository.save(updatableCurriculumVitae);
     }
 }

@@ -26,6 +26,7 @@ import com.repoo.domain.main.user.service.implementation.UsersReader;
 import com.repoo.domain.side.language.service.implementation.LanguageReader;
 import com.repoo.domain.side.language.service.implementation.LanguageUpdater;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -34,6 +35,7 @@ import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CommandCurriculumVitaeService {
@@ -70,42 +72,50 @@ public class CommandCurriculumVitaeService {
         );
         curriculumVitaeCreator.save(curriculumVitae);
 
-        for (RequestCareer career: requestCareers){
-            commandCareerService.save(new Career(
-                    curriculumVitae,
-                    career.careerName(),
-                    career.careerType(),
-                    career.careerDepartment(),
-                    career.careerPosition(),
-                    career.careerStartDate(),
-                    career.careerEndDate(),
-                    career.retirementDescription(),
-                    career.careerDescription()
-            ));
+        if(!requestCareers.isEmpty()){
+            for (RequestCareer career: requestCareers){
+                commandCareerService.save(new Career(
+                        curriculumVitae,
+                        career.careerName(),
+                        career.careerType(),
+                        career.careerDepartment(),
+                        career.careerPosition(),
+                        career.careerStartDate(),
+                        career.careerEndDate(),
+                        career.retirementDescription(),
+                        career.careerDescription()
+                ));
+            }
         }
 
-        for (RequestEducation education: requestEducations){
-            commandEducationService.save(new Education(
-                    curriculumVitae,
-                    education.schoolName(),
-                    education.departmentName(),
-                    education.admission_day(),
-                    education.graduation_day()
-            ));
+        if(!requestEducations.isEmpty()) {
+            for (RequestEducation education : requestEducations) {
+                commandEducationService.save(new Education(
+                        curriculumVitae,
+                        education.schoolName(),
+                        education.departmentName(),
+                        education.admission_day(),
+                        education.graduation_day()
+                ));
+            }
         }
 
-        for (RequestLanguage language: requestLanguages){
-            commandLanguageService.save(curriculumVitae, language.languageName());
+        if(!requestLanguages.isEmpty()) {
+            for (RequestLanguage language : requestLanguages) {
+                commandLanguageService.save(curriculumVitae, language.languageName());
+            }
         }
     }
 
     public void update(Long id,
                        Long userId,
-                       RequestCurriculumVitae requestCurriculumVitae,
-                       List<RequestEducation> requestEducations,
-                       List<RequestCareer> requestCareers,
-                       List<RequestLanguage> requestLanguages
+                       RequestCurriculumVitae requestCurriculumVitae
     ){
+        log.warn("curriculumVitae : " + requestCurriculumVitae.toString());
+        log.warn("curriculumVitae : " + requestCurriculumVitae.requestCareers().toString());
+        log.warn("curriculumVitae : " + requestCurriculumVitae.requestEducations().toString());
+        log.warn("curriculumVitae : " + requestCurriculumVitae.requestLanguages().toString());
+
         CurriculumVitae curriculumVitae = curriculumVitaeReader.getCurriculumVitae(id);
 
         curriculumVitaeUpdate.update(
@@ -119,67 +129,75 @@ public class CommandCurriculumVitaeService {
                 )
         );
 
-        for(Education education: educationReader.getEducationsByCurriculumVitae(curriculumVitae)){
-            for(RequestEducation requestEducation: requestEducations){
-                educationUpdater.update(
-                        education,
-                        new Education(
-                                curriculumVitae,
-                                requestEducation.schoolName(),
-                                requestEducation.departmentName(),
-                                requestEducation.admission_day(),
-                                requestEducation.graduation_day()
-                        )
-                );
+        if(!requestCurriculumVitae.requestEducations().isEmpty()) {
+            for (Education education : educationReader.getEducationsByCurriculumVitae(curriculumVitae)) {
+                for (RequestEducation requestEducation : requestCurriculumVitae.requestEducations()) {
+                    educationUpdater.update(
+                            education,
+                            new Education(
+                                    curriculumVitae,
+                                    requestEducation.schoolName(),
+                                    requestEducation.departmentName(),
+                                    requestEducation.admission_day(),
+                                    requestEducation.graduation_day()
+                            )
+                    );
+                }
             }
         }
 
-        for(Career career: careerReader.getCareersByCurriculumVitae(curriculumVitae)){
-            for (RequestCareer requestCareer: requestCareers){
-                careerUpdater.update(career, new Career(
-                        curriculumVitae,
-                        requestCareer.careerName(),
-                        requestCareer.careerType(),
-                        requestCareer.careerDepartment(),
-                        requestCareer.careerPosition(),
-                        requestCareer.careerStartDate(),
-                        requestCareer.careerEndDate(),
-                        requestCareer.retirementDescription(),
-                        requestCareer.careerDescription()
-                ));
+        if(!requestCurriculumVitae.requestCareers().isEmpty()) {
+            for (Career career : careerReader.getCareersByCurriculumVitae(curriculumVitae)) {
+                for (RequestCareer requestCareer : requestCurriculumVitae.requestCareers()) {
+                    careerUpdater.update(career, new Career(
+                            curriculumVitae,
+                            requestCareer.careerName(),
+                            requestCareer.careerType(),
+                            requestCareer.careerDepartment(),
+                            requestCareer.careerPosition(),
+                            requestCareer.careerStartDate(),
+                            requestCareer.careerEndDate(),
+                            requestCareer.retirementDescription(),
+                            requestCareer.careerDescription()
+                    ));
+                }
             }
         }
 
-        for(Language language: languageReader.findByCurriculumVitae(curriculumVitae)){
-            for (RequestLanguage requestLanguage: requestLanguages){
-                languageUpdater.update(
-                        language,
-                        new Language(
-                                curriculumVitae,
-                                requestLanguage.languageName()
-                        )
-                );
+        if(!requestCurriculumVitae.requestLanguages().isEmpty()) {
+            for (Language language : languageReader.findByCurriculumVitae(curriculumVitae)) {
+                for (RequestLanguage requestLanguage : requestCurriculumVitae.requestLanguages()) {
+                    languageUpdater.update(
+                            language,
+                            new Language(
+                                    curriculumVitae,
+                                    requestLanguage.languageName()
+                            )
+                    );
+                }
             }
         }
+
 
     }
 
     public void delete(Long id, Long userId){
         CurriculumVitae curriculumVitae = curriculumVitaeReader.getCurriculumVitae(id);
-        if (userId == curriculumVitae.getUser().getUsersId()){
-            curriculumVitaeDeleter.delete(id);
+
+        if (userId.equals(curriculumVitae.getUser().getUsersId())){
+            for (Education education: educationReader.getEducationsByCurriculumVitae(curriculumVitae)){
+                commandEducationService.delete(education.getEducationId());
+            }
 
             for (Career career: careerReader.getCareersByCurriculumVitae(curriculumVitae)){
                 commandCareerService.delete(career.getCareerId());
             }
 
-            for (Education education: educationReader.getEducationsByCurriculumVitae(curriculumVitae)){
-                commandEducationService.delete(education.getEducationId());
-            }
-
             for (Language language: languageReader.findByCurriculumVitae(curriculumVitae)){
                 commandLanguageService.delete(language.getLanguageId());
             }
+
+            curriculumVitaeDeleter.delete(id);
         } else {
             throw new CurriculumVitaeNotFoundException();
         }
