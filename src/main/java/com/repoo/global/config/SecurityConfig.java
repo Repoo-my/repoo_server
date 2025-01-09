@@ -85,8 +85,6 @@ public class SecurityConfig {
                                 })
                 );
 
-        http.anonymous((auth) -> auth.disable());  // 익명 인증 비활성화
-
         http.csrf((auth) -> auth.disable());
 
         http.formLogin((auth) -> auth.disable());
