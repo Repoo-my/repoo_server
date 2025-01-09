@@ -66,24 +66,32 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
+                .sessionManagement((session) -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        http
                 .cors((cors) -> cors
                                 .configurationSource(request -> {
 
                                     CorsConfiguration configuration = new CorsConfiguration();
                                     configuration.setAllowedOriginPatterns(Collections.singletonList("*"));
-//                                    configuration.setAllowedMethods(Collections.singletonList("*"));
                                     configuration.setAllowedMethods(Collections.singletonList("*"));
                                     configuration.setAllowCredentials(true);
                                     configuration.setAllowedHeaders(Collections.singletonList("*"));
                                     configuration.setMaxAge(3600L);
-                                    configuration.setExposedHeaders(Arrays.asList("Set-Cookie", "Authorization"));
+//                                    configuration.setExposedHeaders(Arrays.asList("Set-Cookie", "Authorization"));
 
                                     return configuration;
                                 })
                 );
 
-        http
-                .csrf((auth) -> auth.disable());
+        http.anonymous((auth) -> auth.disable());  // 익명 인증 비활성화
+
+        http.csrf((auth) -> auth.disable());
+
+        http.formLogin((auth) -> auth.disable());
+
+        http.httpBasic((auth) -> auth.disable());
 
         http
                 .authorizeHttpRequests((auth) -> auth
@@ -92,12 +100,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/**").permitAll()
                         .requestMatchers("/oauth2/**","/auth/**", "/login/**", "/reissue","/swagger-ui/**", "/v3/api-docs/**", "/api/**", "/verify", "/favicon.ico", "/logout").permitAll()
                         .anyRequest().hasRole("USER"));
-
-        http
-                .formLogin((auth) -> auth.disable());
-
-        http
-                .httpBasic((auth) -> auth.disable());
 
         http
                 .oauth2Login((oauth2) -> oauth2
@@ -147,10 +149,6 @@ public class SecurityConfig {
 
         http
                 .addFilterAt(new CustomLogoutFilter(jwtUtil, refreshTokenRepository), LogoutFilter.class);
-
-        http
-                .sessionManagement((session) -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }
