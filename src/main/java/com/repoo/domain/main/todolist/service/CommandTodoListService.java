@@ -4,7 +4,6 @@ import com.repoo.domain.main.calendar.domain.Calendar;
 import com.repoo.domain.main.calendar.service.QueryCalendarService;
 import com.repoo.domain.main.todolist.domain.TodoList;
 import com.repoo.domain.main.todolist.presentation.dto.req.RequestTodoList;
-import com.repoo.domain.main.todolist.presentation.dto.res.ResponseTodoList;
 import com.repoo.domain.main.todolist.service.implementation.TodoListCreator;
 import com.repoo.domain.main.todolist.service.implementation.TodoListDeleter;
 import com.repoo.domain.main.todolist.service.implementation.TodoListReader;
@@ -30,7 +29,7 @@ public class CommandTodoListService {
         ));
     }
 
-    public void update(ResponseTodoList requestTodoList, Long id, Long userId, Long calendarId){
+    public void update(RequestTodoList requestTodoList, Long id, Long userId, Long calendarId){
         Calendar calendar = queryCalendarService.getCalendar(calendarId, userId);
         TodoList todoList = todoListReader.findById(id);
 
