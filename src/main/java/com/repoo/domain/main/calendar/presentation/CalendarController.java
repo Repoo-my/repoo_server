@@ -4,7 +4,6 @@ import com.repoo.domain.main.calendar.presentation.dto.req.RequestCalendar;
 import com.repoo.domain.main.calendar.presentation.dto.res.ResponseCalendar;
 import com.repoo.domain.main.calendar.service.CommandCalendarService;
 import com.repoo.domain.main.calendar.service.QueryCalendarService;
-import com.repoo.domain.main.todolist.presentation.dto.res.ResponseTodoList;
 import com.repoo.global.jwt.decode.JWTPayloadDecoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
