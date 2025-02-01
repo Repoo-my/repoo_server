@@ -24,6 +24,6 @@ public class JobPostUpdater {
 //                jobPost.getJobpostImg()
         );
 
-        jobPostRepository.save(jobPost);
+        jobPostRepository.save(updatableJobPost);
     }
 }
