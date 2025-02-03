@@ -1,7 +1,9 @@
 package com.repoo.domain.authentication.auth.presentation;
 
 import com.repoo.domain.authentication.auth.presentation.dto.request.AdditionalInfoRequest;
+import com.repoo.domain.authentication.auth.presentation.dto.request.JoinEnterpriseRequest;
 import com.repoo.domain.authentication.auth.service.implementation.AdditionalInfoUpdater;
+import com.repoo.domain.authentication.auth.service.implementation.EnterpriseJoiner;
 import com.repoo.domain.authentication.auth.service.implementation.ReIssuer;
 import com.repoo.global.jwt.decode.JWTPayloadDecoder;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,6 +25,7 @@ public class AuthController {
     private final ReIssuer reIssuer;
     private final AdditionalInfoUpdater additionalInfoUpdater;
     private final JWTPayloadDecoder jWTPayloadDecoder;
+    private final EnterpriseJoiner enterpriseJoiner;
 
     @PostMapping("/reissue")
     @ResponseStatus(HttpStatus.OK)
@@ -51,12 +54,18 @@ public class AuthController {
         );
     }
 
-
     @GetMapping("/check")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "인가 여부", description = "현재 유저의 인가 가능 여부를 판별합니다.")
     public void checkAuthStatus() {
         log.warn("AuthController : /check 성공");
+    }
+
+    @PostMapping("/enterprise/join")
+    public void enterpriseJoin(
+            @RequestBody JoinEnterpriseRequest joinEnterpriseRequest
+    ){
+        enterpriseJoiner.join(joinEnterpriseRequest);
     }
 
 }
