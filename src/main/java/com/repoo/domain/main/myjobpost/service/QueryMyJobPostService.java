@@ -59,6 +59,7 @@ public class QueryMyJobPostService {
                 user.getUserAge()
         );
         ResponseEnterprise responseEnterprise = new ResponseEnterprise(
+                enterprise.getEnterpriseId(),
                 enterprise.getEnterpriseName(),
                 enterprise.getEnterpriseDescription(),
                 enterprise.getEnterpriseEmail(),
