@@ -16,7 +16,8 @@ public class MyJobPostUpdater {
                 myJobPost.getUser(),
                 myJobPost.getEnterprise(),
                 myJobPost.getJobPost(),
-                myJobPost.getCurriculumVitae()
+                myJobPost.getCurriculumVitae(),
+                myJobPost.getIsSubmit()
         );
 
         myJobPostRepository.save(updatableMyJobPost);
