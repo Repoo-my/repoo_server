@@ -3,6 +3,7 @@ package com.repoo.global.jwt.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.repoo.domain.authentication.auth.exception.AuthUserNotFoundException;
 import com.repoo.domain.authentication.auth.exception.InvalidCredentialsException;
+import com.repoo.domain.authentication.auth.service.dto.CustomEnterpriseDetails;
 import com.repoo.domain.authentication.auth.service.dto.CustomUserDetails;
 import com.repoo.global.jwt.dto.LoginRequest;
 import com.repoo.global.jwt.util.JwtUtil;
@@ -32,7 +33,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.objectMapper = objectMapper;
-        setUsernameParameter("email");
+        setUsernameParameter("enterpriseAuthId");
     }
 
     @Override
@@ -41,10 +42,10 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         try {
             LoginRequest loginRequest = objectMapper.readValue(request.getInputStream(), LoginRequest.class);
 
-            String email = loginRequest.email();
+            String enterpriseAuthId = loginRequest.enterpriseAuthId();
             String password = loginRequest.password();
 
-            UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(email, password);
+            UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(enterpriseAuthId, password);
 
             return authenticationManager.authenticate(authRequest);
         } catch (IOException e) {
@@ -55,12 +56,12 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication){
 
-        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        CustomEnterpriseDetails customEnterpriseDetails = (CustomEnterpriseDetails) authentication.getPrincipal();
 
-        Long id = customUserDetails.getId();
+        Long id = customEnterpriseDetails.getId();
 
-        String accessToken = jwtUtil.createAccessToken(id, Authority.USER, "normal");
-        String refreshToken = jwtUtil.createRefreshToken(id, Authority.USER, "normal");
+        String accessToken = jwtUtil.createAccessToken(id, Authority.ENTERPRISE, "normal");
+        String refreshToken = jwtUtil.createRefreshToken(id, Authority.ENTERPRISE, "normal");
 
 
         jwtUtil.addRefreshToken(id, refreshToken);
