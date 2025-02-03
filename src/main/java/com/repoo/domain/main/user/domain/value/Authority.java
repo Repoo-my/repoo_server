@@ -1,7 +1,8 @@
 package com.repoo.domain.main.user.domain.value;
 
 public enum Authority {
-    USER("ROLE_USER");
+    USER("ROLE_USER"),
+    ENTERPRISE("ROLE_ENTERPRISE");
 
     private final String value;
 

@@ -1,5 +1,6 @@
 package com.repoo.domain.main.enterprise.domain;
 
+import com.repoo.domain.main.user.domain.value.Authority;
 import io.hypersistence.utils.hibernate.type.array.StringArrayType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -18,6 +19,8 @@ public class Enterprise {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long enterpriseId;
 
+    private String enterpriseAuthId;
+
     private String enterpriseName;
 
     private String enterprisePassword;
@@ -32,14 +35,19 @@ public class Enterprise {
     @Column(columnDefinition = "varchar[]")
     private String[] enterpriseTags;
 
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
+
 //    private String enterpriseImg;
 
-    public Enterprise(String enterpriseName,
+    public Enterprise(String enterpriseAuthId,
+                      String enterpriseName,
                       String enterprisePassword,
                       String enterpriseDescription,
                       String enterpriseEmail,
                       String enterprisePhone,
                       String[] enterpriseTags) {
+        this.enterpriseAuthId = enterpriseAuthId;
         this.enterpriseName = enterpriseName;
         this.enterprisePassword = enterprisePassword;
         this.enterpriseDescription = enterpriseDescription;
@@ -48,17 +56,23 @@ public class Enterprise {
         this.enterpriseTags = enterpriseTags;
     }
 
-    public void update(String enterpriseName,
+    public void update(String enterpriseAuthId,
+                       String enterpriseName,
                        String enterprisePassword,
                        String enterpriseDescription,
                        String enterpriseEmail,
                        String enterprisePhone,
                        String[] enterpriseTags){
+        this.enterpriseAuthId = enterpriseAuthId;
         this.enterpriseName = enterpriseName;
         this.enterprisePassword = enterprisePassword;
         this.enterpriseDescription = enterpriseDescription;
         this.enterpriseEmail = enterpriseEmail;
         this.enterprisePhone = enterprisePhone;
         this.enterpriseTags = enterpriseTags;
+    }
+
+    public void updateRole(Authority role) {
+        this.authority = role;
     }
 }

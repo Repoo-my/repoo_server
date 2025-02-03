@@ -24,6 +24,7 @@ public class CommandEnterpriseService {
 
     public void create(RequestEnterprise enterprise) {
         enterpriseCreator.save(new Enterprise(
+                enterprise.enterpriseAuthId(),
                 enterprise.enterpriseName(),
                 enterprise.enterprisePassword(),
                 enterprise.enterpriseDescription(),
@@ -37,6 +38,7 @@ public class CommandEnterpriseService {
         enterpriseUpdater.update(
                 enterpriseReader.findById(enterpriseId),
                 new Enterprise(
+                        enterprise.enterpriseAuthId(),
                         enterprise.enterpriseName(),
                         enterprise.enterprisePassword(),
                         enterprise.enterpriseDescription(),

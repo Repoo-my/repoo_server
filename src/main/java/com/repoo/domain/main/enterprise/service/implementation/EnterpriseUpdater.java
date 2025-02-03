@@ -15,6 +15,7 @@ public class EnterpriseUpdater {
 
     public void update(Enterprise updatableEnterprise, Enterprise enterprise) {
         updatableEnterprise.update(
+                enterprise.getEnterpriseAuthId(),
                 enterprise.getEnterpriseName(),
                 enterprise.getEnterprisePassword(),
                 enterprise.getEnterpriseDescription(),

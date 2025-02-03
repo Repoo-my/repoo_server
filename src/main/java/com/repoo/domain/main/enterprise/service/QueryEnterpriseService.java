@@ -23,6 +23,7 @@ public class QueryEnterpriseService {
 
         for (Enterprise enterprise: enterprises) {
             responseEnterprises.add(new ResponseEnterprise(
+                    enterprise.getEnterpriseId(),
                     enterprise.getEnterpriseName(),
                     enterprise.getEnterpriseDescription(),
                     enterprise.getEnterpriseEmail(),
@@ -38,6 +39,7 @@ public class QueryEnterpriseService {
         Enterprise enterprise = enterpriseReader.findById(id);
 
         return new ResponseEnterprise(
+                enterprise.getEnterpriseId(),
                 enterprise.getEnterpriseName(),
                 enterprise.getEnterpriseDescription(),
                 enterprise.getEnterpriseEmail(),
